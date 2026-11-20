@@ -1,0 +1,2916 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/fav1.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <title>SwiftParcel · Nationwide Parcel Logistics & Enterprise Shipping — Home 2</title>
+  <script src="tailwind.js"></script>
+  <style>
+    /* ================================================================
+       THEME VARIABLES
+       ================================================================ */
+    :root, html[data-theme='light'] {
+      --color-background: #FFFFFF;
+      --color-primary-text: #1A2A3A;
+      --color-secondary-text: #5A6E7F;
+      --color-accent: #1E6F9F;
+      --color-accent-2: #F59E0B;
+      --color-accent-light: #EAF3FA;
+      --color-border: #D9E2EC;
+      --color-hover: #F2F7FC;
+      --color-footer-bg: #0F1A24;
+      --color-footer-text: #E8F0F8;
+      --nav-bg: rgba(255, 255, 255, 0.84);
+      --nav-border: rgba(30, 111, 159, 0.12);
+      --card-bg: #FFFFFF;
+      --shadow-sm: 0 2px 6px rgba(0,0,0,0.04);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.06);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.08);
+      --gradient-accent: linear-gradient(135deg, #1E6F9F 0%, #14547A 100%);
+      --gradient-accent-soft: linear-gradient(135deg, rgba(30,111,159,0.08) 0%, rgba(20,84,122,0.04) 100%);
+      --gradient-warm: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+      --hero-overlay: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.88) 55%, rgba(255, 255, 255, 0.98) 100%);
+    }
+    html[data-theme='dark'] {
+      --color-background: #121A22;
+      --color-primary-text: #E8F0F8;
+      --color-secondary-text: #9FB2C2;
+      --color-accent: #4A9ED9;
+      --color-accent-2: #FBBF24;
+      --color-accent-light: #1B2A38;
+      --color-border: #2C3E4E;
+      --color-hover: #1D2A36;
+      --color-footer-bg: #0A1017;
+      --color-footer-text: #D4E2F0;
+      --nav-bg: rgba(18, 26, 34, 0.84);
+      --nav-border: rgba(74, 158, 217, 0.15);
+      --card-bg: #1A242E;
+      --shadow-sm: 0 2px 6px rgba(0,0,0,0.3);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.35);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.45);
+      --gradient-accent: linear-gradient(135deg, #4A9ED9 0%, #2E7AB5 100%);
+      --gradient-accent-soft: linear-gradient(135deg, rgba(74,158,217,0.10) 0%, rgba(46,122,181,0.05) 100%);
+      --gradient-warm: linear-gradient(135deg, #FBBF24 0%, #D97706 100%);
+      --hero-overlay: linear-gradient(180deg, rgba(18, 26, 34, 0.94) 0%, rgba(18, 26, 34, 0.88) 55%, rgba(18, 26, 34, 0.98) 100%);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      background-color: var(--color-background);
+      color: var(--color-primary-text);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+      overflow-x: hidden;
+      margin: 0;
+      line-height: 1.6;
+    }
+    .text-primary-text { color: var(--color-primary-text); }
+    .text-secondary-text { color: var(--color-secondary-text); }
+    .text-accent { color: var(--color-accent); }
+    .bg-background { background-color: var(--color-background); }
+    .bg-hover { background-color: var(--color-hover); }
+    .bg-card { background-color: var(--card-bg); }
+    .border-border { border-color: var(--color-border); }
+
+    h1, h2, h3, h4, h5, h6 { font-weight: 700 !important; margin: 0; }
+    p { margin: 0; font-weight: 400 !important; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    @media (min-width: 640px) { .container { padding: 0 28px; } }
+    @media (min-width: 1024px) { .container { padding: 0 40px; } }
+    @media (min-width: 1280px) { .container { padding: 0 56px; } }
+
+    /* ================================================================
+       NAVBAR
+       ================================================================ */
+    #main-header {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+      width: 96%;
+      max-width: 1280px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--nav-border);
+      border-radius: 9999px;
+      box-shadow: var(--shadow-md);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #main-header.scrolled { box-shadow: var(--shadow-lg); }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      padding: 0 18px;
+    }
+    @media (min-width: 640px) { .nav-inner { padding: 0 22px; } }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--color-primary-text);
+      letter-spacing: -0.5px;
+    }
+    .nav-logo-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--gradient-accent);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      box-shadow: 0 4px 12px rgba(30, 111, 159, 0.3);
+    }
+    .nav-logo-text span { color: var(--color-accent); }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 4px;
+    }
+    @media (min-width: 1024px) { .nav-links { display: flex; } }
+
+    .nav-link {
+      padding: 8px 14px;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--color-secondary-text);
+      border-radius: 9999px;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: var(--color-accent);
+      background: var(--gradient-accent-soft);
+    }
+
+    .dropdown-wrapper { position: relative; }
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      min-width: 200px;
+      background: var(--card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 8px;
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(6px);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 60;
+    }
+    .dropdown-wrapper:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .dropdown-menu a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--color-secondary-text);
+      border-radius: 10px;
+      transition: all 0.2s ease;
+    }
+    .dropdown-menu a:hover, .dropdown-menu a.active {
+      color: var(--color-accent);
+      background: var(--color-hover);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-secondary-text);
+      background: var(--color-hover);
+      border: 1px solid var(--color-border);
+      transition: all 0.2s ease;
+    }
+    .nav-icon-btn:hover {
+      color: var(--color-accent);
+      border-color: var(--color-accent);
+      transform: translateY(-1px);
+    }
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 18px;
+      border-radius: 9999px;
+      background: var(--gradient-accent);
+      color: white !important;
+      font-weight: 700;
+      font-size: 13.5px;
+      box-shadow: 0 4px 14px rgba(30, 111, 159, 0.25);
+      transition: all 0.3s ease;
+    }
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(30, 111, 159, 0.35);
+    }
+    .mobile-menu-btn {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary-text);
+      background: var(--color-hover);
+      border: 1px solid var(--color-border);
+    }
+    @media (max-width: 1023px) {
+      .mobile-menu-btn { display: flex; }
+      .nav-cta { display: none !important; }
+    }
+
+    /* ================================================================
+       STANDARDIZED BUTTON SYSTEM (Consistent across all pages)
+       ================================================================ */
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: var(--gradient-accent); color: #ffffff !important;
+      padding: 12px 26px; border-radius: 12px; min-height: 46px;
+      font-weight: 700; font-size: 15px; border: 2px solid transparent;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 14px rgba(30, 111, 159, 0.25);
+      white-space: nowrap; cursor: pointer; text-decoration: none;
+      box-sizing: border-box;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(30, 111, 159, 0.35);
+      color: #ffffff !important;
+    }
+    .btn-outline {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: transparent; color: var(--color-accent) !important;
+      border: 2px solid var(--color-accent);
+      padding: 10px 24px; border-radius: 12px; min-height: 46px;
+      font-weight: 700; font-size: 15px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap; cursor: pointer; text-decoration: none;
+      box-sizing: border-box;
+    }
+    .btn-outline:hover {
+      background: var(--color-accent); color: #ffffff !important;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(30, 111, 159, 0.25);
+    }
+    .btn-ghost {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: transparent; color: var(--color-primary-text) !important;
+      border: 1.5px solid var(--color-border);
+      padding: 10px 22px; border-radius: 12px; min-height: 46px;
+      font-weight: 600; font-size: 14.5px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap; cursor: pointer; text-decoration: none;
+      box-sizing: border-box;
+    }
+    .btn-ghost:hover {
+      border-color: var(--color-accent); color: var(--color-accent) !important;
+      background: var(--color-hover);
+      transform: translateY(-2px);
+    }
+    .btn-sm {
+      padding: 8px 18px !important; min-height: 36px !important;
+      font-size: 13.5px !important; border-radius: 10px !important;
+    }
+
+    /* ================================================================
+       SECTION STYLES
+       ================================================================ */
+    .section { padding: 72px 0; position: relative; }
+    @media (min-width: 768px) { .section { padding: 88px 0; } }
+    @media (min-width: 1024px) { .section { padding: 104px 0; } }
+
+    .section-header {
+      text-align: center; max-width: 720px; margin: 0 auto 48px;
+    }
+    .section-header .tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11.5px; font-weight: 700;
+      letter-spacing: 1.1px; text-transform: uppercase;
+      color: var(--color-accent);
+      background: var(--gradient-accent-soft);
+      padding: 6px 14px; border-radius: 9999px;
+      margin-bottom: 14px; border: 1px solid var(--color-border);
+    }
+    .section-header h2 {
+      font-size: 32px; font-weight: 800 !important;
+      letter-spacing: -0.8px; color: var(--color-primary-text);
+      margin-bottom: 14px; line-height: 1.18;
+    }
+    @media (min-width: 768px) { .section-header h2 { font-size: 40px; } }
+    .section-header p {
+      font-size: 16.5px; line-height: 1.7; color: var(--color-secondary-text);
+    }
+
+    /* ================================================================
+       UNIQUE HOME 2: 2-COLUMN SPLIT HERO
+       ================================================================ */
+    .home2-hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 130px 0 80px;
+      background-color: var(--color-background);
+      background-image: var(--hero-overlay), url('assets/images/heroes/hero-home2.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .home2-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    @media (min-width: 1024px) {
+      .home2-hero-grid {
+        grid-template-columns: 1.15fr 0.95fr;
+        gap: 56px;
+      }
+    }
+
+    .home2-hero-left {
+      text-align: left;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      border-radius: 9999px;
+      background: var(--gradient-accent-soft);
+      border: 1px solid var(--color-border);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--color-accent);
+      margin-bottom: 22px;
+      box-shadow: var(--shadow-sm);
+    }
+    .pulse-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .home2-hero-left h1 {
+      font-size: 38px;
+      font-weight: 850 !important;
+      line-height: 1.12;
+      letter-spacing: -1.2px;
+      color: var(--color-primary-text);
+      margin-bottom: 20px;
+    }
+    @media (min-width: 640px) { .home2-hero-left h1 { font-size: 48px; } }
+    @media (min-width: 1024px) { .home2-hero-left h1 { font-size: 54px; } }
+
+    .highlight {
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .home2-hero-left p {
+      font-size: 17.5px;
+      line-height: 1.7;
+      color: var(--color-secondary-text);
+      max-width: 580px;
+      margin-bottom: 30px;
+    }
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+    .hero-trust-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-top: 18px;
+      border-top: 1px solid var(--color-border);
+      flex-wrap: wrap;
+    }
+    .avatar-stack {
+      display: flex;
+      align-items: center;
+    }
+    .avatar-stack img {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 2.5px solid var(--card-bg);
+      margin-left: -10px;
+      object-fit: cover;
+    }
+    .avatar-stack img:first-child { margin-left: 0; }
+    .hero-rating-text {
+      font-size: 13.5px;
+      color: var(--color-secondary-text);
+    }
+    .hero-rating-text strong {
+      color: var(--color-primary-text);
+      font-weight: 700;
+    }
+    .hero-perk-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .perk-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--color-primary-text);
+      background: var(--color-hover);
+      border: 1px solid var(--color-border);
+      padding: 5px 12px;
+      border-radius: 8px;
+    }
+    .perk-chip i { color: #10B981; }
+
+    /* ================================================================
+       INTERACTIVE PARCEL COMMAND HUB WIDGET (Hero Right)
+       ================================================================ */
+    .command-hub-card {
+      background: var(--card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 26px;
+      box-shadow: var(--shadow-lg);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(16px);
+      transition: all 0.3s ease;
+    }
+    .hub-tabs {
+      display: flex;
+      background: var(--color-hover);
+      border-radius: 14px;
+      padding: 4px;
+      gap: 4px;
+      margin-bottom: 20px;
+    }
+    .hub-tab-btn {
+      flex: 1;
+      padding: 10px 14px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--color-secondary-text);
+      border-radius: 10px;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+    }
+    .hub-tab-btn.active {
+      background: var(--card-bg);
+      color: var(--color-accent);
+      box-shadow: var(--shadow-sm);
+    }
+    .hub-tab-content { display: none; }
+    .hub-tab-content.active { display: block; }
+
+    /* Tab 1: Live Tracker */
+    .quick-track-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .quick-track-bar input {
+      flex: 1;
+      background: var(--color-hover);
+      border: 1px solid var(--color-border);
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      color: var(--color-primary-text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .quick-track-bar input:focus { border-color: var(--color-accent); }
+
+    .track-sample-chips {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .sample-label { font-size: 12px; color: var(--color-secondary-text); }
+    .chip-btn {
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: var(--color-hover);
+      border: 1px solid var(--color-border);
+      color: var(--color-accent);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .chip-btn:hover, .chip-btn.active {
+      background: var(--color-accent);
+      color: white;
+      border-color: var(--color-accent);
+    }
+
+    .live-route-box {
+      background: var(--color-hover);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+    .route-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .route-code {
+      font-weight: 800;
+      font-size: 14.5px;
+      color: var(--color-primary-text);
+      letter-spacing: 0.5px;
+    }
+    .route-status-pill {
+      font-size: 12px;
+      font-weight: 700;
+      color: #065F46;
+      background: #D1FAE5;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    html[data-theme='dark'] .route-status-pill {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34D399;
+    }
+
+    .journey-stepper {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin: 20px 6px;
+    }
+    .journey-stepper::before {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      right: 14px;
+      height: 3px;
+      background: var(--color-border);
+      z-index: 1;
+    }
+    .journey-step {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .step-bullet {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 3px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--color-secondary-text);
+      transition: all 0.3s;
+    }
+    .journey-step.done .step-bullet {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: white;
+    }
+    .journey-step.active .step-bullet {
+      background: #10B981;
+      border-color: #10B981;
+      color: white;
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+    }
+    .step-name {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--color-secondary-text);
+      text-align: center;
+    }
+
+    .telemetry-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 12px;
+      border: 1px solid var(--color-border);
+      margin-top: 14px;
+    }
+    .tel-item { text-align: center; }
+    .tel-label { font-size: 11px; color: var(--color-secondary-text); margin-bottom: 2px; }
+    .tel-val { font-size: 12.5px; font-weight: 700; color: var(--color-primary-text); }
+
+    /* Tab 2: Rate Estimator */
+    .calc-row {
+      margin-bottom: 14px;
+    }
+    .calc-label {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--color-primary-text);
+      margin-bottom: 6px;
+      display: block;
+    }
+    .size-selector-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .size-option-btn {
+      padding: 8px 4px;
+      border-radius: 10px;
+      border: 1.5px solid var(--color-border);
+      background: var(--color-hover);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .size-option-btn.active {
+      border-color: var(--color-accent);
+      background: var(--gradient-accent-soft);
+      color: var(--color-accent);
+    }
+    .size-option-btn i { font-size: 16px; margin-bottom: 4px; display: block; }
+    .size-option-btn span { font-size: 11.5px; font-weight: 700; display: block; }
+
+    .calc-inputs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .calc-input-wrap {
+      background: var(--color-hover);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      padding: 8px 12px;
+    }
+    .calc-input-wrap label { font-size: 11px; color: var(--color-secondary-text); display: block; }
+    .calc-input-wrap input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--color-primary-text);
+    }
+    .rate-quote-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--gradient-accent-soft);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+    }
+    .quote-title { font-size: 12.5px; color: var(--color-secondary-text); }
+    .quote-val { font-size: 24px; font-weight: 800; color: var(--color-accent); }
+
+    /* ================================================================
+       SECTION 2: LIVE METRICS TICKER + BENTO GRID
+       ================================================================ */
+    .metrics-ticker-strip {
+      background: var(--color-hover);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      padding: 22px 0;
+    }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    @media (min-width: 768px) {
+      .metrics-grid { grid-template-columns: repeat(4, 1fr); gap: 28px; }
+    }
+    .metric-card {
+      text-align: center;
+      padding: 10px;
+    }
+    .metric-num {
+      font-size: 32px;
+      font-weight: 850;
+      color: var(--color-accent);
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    @media (min-width: 1024px) { .metric-num { font-size: 38px; } }
+    .metric-label {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--color-secondary-text);
+    }
+
+    /* BENTO GRID */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    @media (min-width: 641px) and (max-width: 1023px) {
+      .bento-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+      .bento-wide {
+        grid-column: span 2;
+      }
+    }
+    @media (min-width: 1024px) {
+      .bento-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+      }
+      .bento-wide {
+        grid-column: span 2;
+      }
+    }
+    .bento-card {
+      background: var(--card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 22px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .bento-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-accent);
+    }
+    .bento-img-wrap {
+      height: 230px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    @media (max-width: 640px) {
+      .bento-img-wrap {
+        height: 200px;
+      }
+    }
+    .bento-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .bento-card:hover .bento-img-wrap img {
+      transform: scale(1.06);
+    }
+    .bento-tag-pill {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(15, 26, 36, 0.85);
+      color: white;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      z-index: 2;
+    }
+    .bento-content {
+      padding: 26px 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .bento-content h3 {
+      font-size: 20px;
+      font-weight: 800 !important;
+      color: var(--color-primary-text);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    @media (min-width: 1024px) {
+      .bento-content h3 {
+        min-height: 52px;
+      }
+    }
+    .bento-content p {
+      font-size: 14.5px;
+      color: var(--color-secondary-text);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+    @media (min-width: 1024px) {
+      .bento-content p {
+        min-height: 68px;
+      }
+    }
+    .bento-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .bento-features li {
+      font-size: 13.5px;
+      color: var(--color-primary-text);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.45;
+    }
+    .bento-features li i {
+      color: var(--color-accent);
+      font-size: 12px;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+    .bento-btn-wrap {
+      margin-top: auto;
+      padding-top: 16px;
+      display: flex;
+      align-items: center;
+    }
+    @media (max-width: 640px) {
+      .bento-btn-wrap a {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+    }
+
+    /* ================================================================
+       SECTION 3: PARCEL SIZING & PACKAGING GUIDE (Visual Matrix)
+       ================================================================ */
+    .parcel-matrix-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    @media (min-width: 640px) {
+      .parcel-matrix-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+    }
+    @media (min-width: 1140px) {
+      .parcel-matrix-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+      }
+    }
+    .matrix-card {
+      background: var(--card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+      transition: all 0.35s ease;
+      box-shadow: var(--shadow-sm);
+    }
+    .matrix-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-accent);
+    }
+    .matrix-card.featured-card {
+      border-color: var(--color-accent);
+      box-shadow: 0 8px 30px rgba(30, 111, 159, 0.15);
+    }
+    .matrix-img-wrap {
+      height: 180px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    @media (min-width: 1140px) {
+      .matrix-img-wrap {
+        height: 165px;
+      }
+    }
+    .matrix-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.5s ease;
+    }
+    .matrix-card:hover .matrix-img-wrap img {
+      transform: scale(1.06);
+    }
+    .matrix-popular-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--gradient-accent);
+      color: white;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      letter-spacing: 0.4px;
+      box-shadow: 0 4px 12px rgba(30, 111, 159, 0.4);
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .matrix-content {
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .matrix-weight-badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-accent);
+      background: var(--gradient-accent-soft);
+      border: 1px solid rgba(30, 111, 159, 0.15);
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      align-self: flex-start;
+      line-height: 1.2;
+    }
+    .matrix-content h3 {
+      font-size: 18px;
+      font-weight: 800 !important;
+      color: var(--color-primary-text);
+      margin-bottom: 8px;
+      line-height: 1.3;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+    }
+    .matrix-content p {
+      font-size: 13.5px;
+      color: var(--color-secondary-text);
+      line-height: 1.55;
+      margin-bottom: 14px;
+      min-height: 42px;
+      display: flex;
+      align-items: flex-start;
+    }
+    @media (min-width: 1140px) {
+      .matrix-content p {
+        min-height: 60px;
+      }
+    }
+    .matrix-specs {
+      background: var(--color-hover);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      color: var(--color-secondary-text);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      min-height: 78px;
+      justify-content: center;
+    }
+    .matrix-specs span {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .matrix-specs span strong {
+      color: var(--color-primary-text);
+      font-weight: 600;
+    }
+    .matrix-price-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid var(--color-border);
+      margin-bottom: 14px;
+    }
+    .matrix-from {
+      font-size: 12px;
+      color: var(--color-secondary-text);
+      font-weight: 500;
+    }
+    .matrix-cost {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--color-accent);
+      line-height: 1;
+    }
+    .matrix-btn-wrap {
+      width: 100%;
+    }
+    .matrix-btn-wrap a {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+      display: flex;
+      gap: 6px;
+    }
+
+    /* ================================================================
+       SECTION 4: 5-STAGE VISUAL PARCEL JOURNEY
+       ================================================================ */
+    .journey-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+    @media (min-width: 640px) and (max-width: 1023px) {
+      .journey-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+      .journey-stage-card:last-child {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: 100%;
+        max-width: calc(50% - 10px);
+      }
+    }
+    @media (min-width: 1024px) {
+      .journey-cards-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 16px;
+      }
+    }
+    .journey-stage-card {
+      background: var(--card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      transition: all 0.3s ease;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+    }
+    .journey-stage-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--color-accent);
+      box-shadow: var(--shadow-md);
+    }
+    .stage-img-wrap {
+      height: 145px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    @media (min-width: 1024px) {
+      .stage-img-wrap {
+        height: 135px;
+      }
+    }
+    .stage-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.5s ease;
+    }
+    .journey-stage-card:hover .stage-img-wrap img {
+      transform: scale(1.06);
+    }
+    .stage-number {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--gradient-accent);
+      color: white;
+      font-weight: 800;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      z-index: 2;
+    }
+    .stage-content {
+      padding: 18px 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .stage-content h4 {
+      font-size: 15px;
+      font-weight: 750 !important;
+      color: var(--color-primary-text);
+      margin-bottom: 6px;
+      line-height: 1.3;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+    }
+    .stage-content p {
+      font-size: 12.5px;
+      color: var(--color-secondary-text);
+      line-height: 1.55;
+      min-height: 56px;
+    }
+
+    /* ================================================================
+       SECTION 5: ECO-FRIENDLY & SUSTAINABLE GREEN FLEET
+       ================================================================ */
+    .enterprise-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    @media (min-width: 1024px) {
+      .enterprise-grid { grid-template-columns: 1fr 1fr; gap: 56px; }
+    }
+    .enterprise-features-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-top: 24px;
+    }
+    .ent-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .ent-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--gradient-accent-soft);
+      border: 1px solid var(--color-border);
+      color: var(--color-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      transition: all 0.25s ease;
+    }
+    .ent-item:hover .ent-icon {
+      background: rgba(16, 185, 129, 0.12);
+      color: #10B981;
+      border-color: rgba(16, 185, 129, 0.3);
+      transform: translateY(-2px);
+    }
+    .ent-details h4 {
+      font-size: 16px;
+      font-weight: 700 !important;
+      color: var(--color-primary-text);
+      margin-bottom: 4px;
+    }
+    .ent-details p {
+      font-size: 14px;
+      color: var(--color-secondary-text);
+      line-height: 1.6;
+    }
+
+    /* Eco Dashboard Visual Card */
+    .eco-dashboard-card {
+      background: var(--card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .eco-dashboard-card:hover {
+      box-shadow: 0 20px 40px rgba(16, 185, 129, 0.12);
+    }
+    .eco-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: var(--color-hover);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .eco-pulse-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--color-primary-text);
+    }
+    .eco-pulse-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 10px #10B981;
+      display: inline-block;
+      animation: ecoPulseAnim 2s infinite;
+    }
+    @keyframes ecoPulseAnim {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .eco-badge-tag {
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: rgba(16, 185, 129, 0.12);
+      color: #10B981;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .eco-visual-banner {
+      position: relative;
+      height: 190px;
+      overflow: hidden;
+    }
+    .eco-visual-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .eco-dashboard-card:hover .eco-visual-banner img {
+      transform: scale(1.03);
+    }
+    .eco-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(15, 26, 36, 0.2) 0%, rgba(15, 26, 36, 0.85) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      color: white;
+    }
+    .eco-banner-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .eco-chip {
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #FFFFFF;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .eco-banner-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .eco-banner-bottom h5 {
+      color: #FFFFFF !important;
+      font-size: 15px;
+      margin-bottom: 2px;
+      font-weight: 700 !important;
+    }
+    .eco-banner-bottom span {
+      font-size: 12px;
+      color: #CBD5E1;
+    }
+
+    .eco-body-stats {
+      padding: 20px;
+    }
+    .eco-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    @media (max-width: 540px) {
+      .eco-stat-grid { grid-template-columns: 1fr; }
+    }
+    .eco-stat-box {
+      background: var(--color-hover);
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      text-align: left;
+    }
+    .eco-stat-box .eco-val {
+      font-size: 20px;
+      font-weight: 800;
+      color: #10B981;
+      line-height: 1.2;
+      margin-bottom: 2px;
+    }
+    .eco-stat-box .eco-lbl {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-primary-text);
+      line-height: 1.3;
+    }
+    .eco-stat-box .eco-sub {
+      font-size: 11px;
+      color: var(--color-secondary-text);
+      margin-top: 2px;
+    }
+
+    .eco-progress-wrap {
+      background: var(--color-hover);
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+    .eco-progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-primary-text);
+      margin-bottom: 8px;
+    }
+    .eco-progress-bar {
+      height: 8px;
+      background: var(--color-border);
+      border-radius: 9999px;
+      overflow: hidden;
+      position: relative;
+    }
+    .eco-progress-fill {
+      height: 100%;
+      width: 96.4%;
+      background: linear-gradient(90deg, #10B981 0%, #34D399 100%);
+      border-radius: 9999px;
+    }
+    .eco-footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      font-size: 11.5px;
+      color: var(--color-secondary-text);
+    }
+
+    /* ================================================================
+       SECTION 6: CASE STUDIES & VERIFIED REVIEWS
+       ================================================================ */
+    .case-reviews-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    @media (min-width: 1024px) {
+      .case-reviews-grid { grid-template-columns: 1.1fr 1fr; gap: 40px; }
+    }
+    .case-spotlight-card {
+      background: var(--card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+    }
+    .spotlight-img {
+      height: 220px;
+      position: relative;
+    }
+    .spotlight-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .spotlight-badge {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      background: var(--gradient-accent);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 9999px;
+    }
+    .spotlight-content {
+      padding: 28px;
+    }
+    .spotlight-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 20px 0;
+      padding: 16px;
+      background: var(--color-hover);
+      border-radius: 14px;
+      border: 1px solid var(--color-border);
+      text-align: center;
+    }
+    .sp-num { font-size: 22px; font-weight: 850; color: var(--color-accent); }
+    .sp-label { font-size: 11px; color: var(--color-secondary-text); }
+
+    .reviews-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .review-mini-card {
+      background: var(--card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .review-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .review-top img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .reviewer-name { font-size: 14.5px; font-weight: 750; color: var(--color-primary-text); }
+    .reviewer-title { font-size: 12px; color: var(--color-secondary-text); }
+    .review-stars { color: #F59E0B; font-size: 12px; margin-left: auto; }
+    .review-text { font-size: 13.5px; color: var(--color-secondary-text); line-height: 1.6; }
+
+    /* ================================================================
+       SECTION 7: ENTERPRISE CTA SECTION (Proper Padding & Alignment)
+       ================================================================ */
+    .cta-section {
+      padding: 64px 0 84px;
+      position: relative;
+    }
+    @media (min-width: 768px) {
+      .cta-section { padding: 80px 0 100px; }
+    }
+    @media (min-width: 1024px) {
+      .cta-section { padding: 96px 0 120px; }
+    }
+    .cta-card {
+      background: var(--gradient-accent);
+      border-radius: 24px;
+      padding: 44px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(30, 111, 159, 0.28);
+    }
+    @media (min-width: 640px) { .cta-card { padding: 56px 40px; border-radius: 28px; } }
+    @media (min-width: 1024px) { .cta-card { padding: 68px 56px; } }
+
+    .cta-card::before {
+      content: ''; position: absolute;
+      top: -50%; right: -20%; width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .cta-card::after {
+      content: ''; position: absolute;
+      bottom: -40%; left: -10%; width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .cta-card > * { position: relative; z-index: 2; }
+    .cta-card h2 {
+      font-size: 28px; font-weight: 800 !important;
+      color: white; margin-bottom: 14px;
+      line-height: 1.15; letter-spacing: -0.5px;
+    }
+    @media (min-width: 640px) { .cta-card h2 { font-size: 38px; } }
+    .cta-card p {
+      font-size: 15.5px; line-height: 1.7;
+      color: rgba(255,255,255,0.92);
+      max-width: 580px; margin: 0 auto 28px;
+    }
+    .cta-buttons {
+      display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+    }
+    .cta-btn-white {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: #ffffff; color: #14547A !important;
+      padding: 12px 26px; border-radius: 12px; min-height: 46px;
+      font-weight: 700; font-size: 15px; border: 2px solid #ffffff;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+      white-space: nowrap; cursor: pointer; text-decoration: none;
+      box-sizing: border-box;
+    }
+    .cta-btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      color: #14547A !important;
+      background: #f8fafc;
+    }
+    .cta-btn-ghost {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: transparent; color: #ffffff !important;
+      border: 2px solid rgba(255, 255, 255, 0.85);
+      padding: 10px 24px; border-radius: 12px; min-height: 46px;
+      font-weight: 700; font-size: 15px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap; cursor: pointer; text-decoration: none;
+      box-sizing: border-box;
+    }
+    .cta-btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: #ffffff;
+      color: #ffffff !important;
+      transform: translateY(-2px);
+    }
+
+    /* ================================================================
+       FOOTER
+       ================================================================ */
+    #main-footer {
+      background-color: var(--color-footer-bg);
+      color: var(--color-footer-text);
+      padding-top: 60px;
+      transition: background-color 0.3s;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 1fr; gap: 36px;
+      padding-bottom: 44px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    @media (min-width: 640px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 1024px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 44px; } }
+
+    .footer-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .footer-brand .nav-logo-icon { width: 38px; height: 38px; border-radius: 11px; font-size: 17px; }
+    .footer-brand span { font-size: 21px; font-weight: 800; color: var(--color-footer-text); }
+    .footer-brand span em { font-style: normal; color: #4A9ED9; }
+    .footer-desc {
+      font-size: 13.5px; line-height: 1.7;
+      color: rgba(232, 240, 248, 0.65);
+      max-width: 300px; margin-bottom: 22px;
+    }
+    .footer-social { display: flex; gap: 10px; }
+    .footer-social a {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(232, 240, 248, 0.7); font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    .footer-social a:hover {
+      background: var(--color-accent); color: white;
+      border-color: var(--color-accent);
+      transform: translateY(-2px);
+    }
+    .footer-heading {
+      font-size: 13.5px; font-weight: 700;
+      color: white; margin-bottom: 18px;
+      letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    .footer-links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 11px; }
+    .footer-links a {
+      font-size: 13.5px; color: rgba(232, 240, 248, 0.65);
+      transition: all 0.2s ease;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .footer-links a i { font-size: 10px; opacity: 0.5; transition: transform 0.2s; }
+    .footer-links a:hover { color: #4A9ED9; transform: translateX(3px); }
+    .footer-links a:hover i { opacity: 1; transform: translateX(2px); }
+    .footer-contact { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+    .footer-contact li {
+      display: flex; gap: 12px; font-size: 13.5px;
+      color: rgba(232, 240, 248, 0.65);
+      align-items: flex-start;
+    }
+    .footer-contact i { color: #4A9ED9; margin-top: 4px; font-size: 14px; }
+    .footer-newsletter { display: flex; gap: 8px; margin-top: 18px; }
+    .footer-newsletter input {
+      flex: 1; background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; padding: 10px 14px;
+      font-size: 13px; color: white; outline: none;
+    }
+    .footer-newsletter input:focus { border-color: #4A9ED9; }
+    .footer-newsletter button {
+      background: var(--gradient-accent); color: white;
+      padding: 0 16px; border-radius: 10px;
+      font-weight: 700; font-size: 13px;
+    }
+    .footer-bottom {
+      padding: 24px 0;
+      text-align: center;
+      font-size: 13px;
+      color: rgba(232, 240, 248, 0.5);
+    }
+
+    /* Mobile Drawer */
+    #mobile-menu-drawer {
+      position: fixed; inset: 0; z-index: 100;
+      display: none;
+    }
+    #mobile-menu-drawer.open { display: block; }
+    #drawer-backdrop {
+      position: absolute; inset: 0; background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+    }
+    #drawer-content {
+      position: absolute; top: 0; right: 0; bottom: 0;
+      width: 82%; max-width: 340px;
+      background: var(--card-bg);
+      border-left: 1px solid var(--color-border);
+      padding: 24px; display: flex; flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #mobile-menu-drawer.open #drawer-content { transform: translateX(0); }
+    .drawer-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-bottom: 20px; border-bottom: 1px solid var(--color-border);
+    }
+    .drawer-nav { display: flex; flex-direction: column; gap: 6px; padding: 20px 0; flex: 1; overflow-y: auto; }
+    .drawer-nav a, .drawer-nav button {
+      padding: 11px 14px; border-radius: 12px; font-weight: 600; font-size: 15px;
+      color: var(--color-primary-text); text-align: left;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .drawer-nav a.active, .drawer-nav a:hover {
+      background: var(--gradient-accent-soft);
+      color: var(--color-accent);
+    }
+    .drawer-sub { padding-left: 14px; display: none; flex-direction: column; gap: 4px; }
+    .drawer-sub.open { display: flex; }
+    .drawer-footer { display: flex; flex-direction: column; gap: 10px; padding-top: 16px; border-top: 1px solid var(--color-border); }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .stagger > * {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .stagger.active > *:nth-child(1) { transition-delay: 0.05s; opacity: 1; transform: translateY(0); }
+    .stagger.active > *:nth-child(2) { transition-delay: 0.12s; opacity: 1; transform: translateY(0); }
+    .stagger.active > *:nth-child(3) { transition-delay: 0.19s; opacity: 1; transform: translateY(0); }
+    .stagger.active > *:nth-child(4) { transition-delay: 0.26s; opacity: 1; transform: translateY(0); }
+    .stagger.active > *:nth-child(5) { transition-delay: 0.33s; opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- ================================================================
+       NAVBAR
+       ================================================================ -->
+  <header id="main-header">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <div class="nav-logo-text">Swift<span>Parcel</span></div>
+      </a>
+
+      <nav class="nav-links">
+        <div class="dropdown-wrapper">
+          <button class="nav-link active" id="home-dropdown-btn">
+            Home <i class="fa-solid fa-chevron-down text-[9px] opacity-60"></i>
+          </button>
+          <div class="dropdown-menu">
+            <a href="index.html">Home 1 (Courier)</a>
+            <a href="home2.html" class="active">Home 2 (Parcel)</a>
+          </div>
+        </div>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="pricing.html" class="nav-link">Pricing</a>
+        <a href="process.html" class="nav-link">Process</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <div class="dropdown-wrapper">
+          <button class="nav-link" id="dashboard-dropdown-btn">
+            Dashboard <i class="fa-solid fa-chevron-down text-[9px] opacity-60"></i>
+          </button>
+          <div class="dropdown-menu">
+            <a href="admin.html"><i class="fa-solid fa-shield-halved"></i> Admin Dashboard</a>
+            <a href="userdash.html"><i class="fa-solid fa-user-gear"></i> Customer Dashboard</a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="nav-icon-btn" title="Toggle theme">
+          <svg class="w-5 h-5 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+          <svg class="w-5 h-5 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+        </button>
+        <button id="lang-icon" class="nav-icon-btn" title="Toggle RTL">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" /></svg>
+        </button>
+        <a href="login.html" class="nav-cta">
+          <i class="fa-solid fa-right-to-bracket"></i> Login
+        </a>
+        <button id="mobile-menu-open" class="mobile-menu-btn" aria-label="Open menu">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ================================================================
+         SECTION 1: DISTINCT 2-COLUMN SPLIT HERO (ENTERPRISE PARCEL HUB)
+         ================================================================ -->
+    <section class="home2-hero">
+      <div class="container">
+        <div class="home2-hero-grid">
+          
+          <!-- Hero Left Column -->
+          <div class="home2-hero-left reveal">
+            <div class="hero-badge">
+              <span class="pulse-dot"></span>
+              Nationwide Parcel Logistics · Next-Day & Freight
+            </div>
+            <h1>
+              Smart Parcel Shipping,<br>
+              <span class="highlight">Engineered for Scale.</span>
+            </h1>
+            <p>
+              Ship boxes, freight pallets, and e-commerce inventory nationwide with automated dispatch, live GPS telemetry, and transparent volume rates.
+            </p>
+            <div class="hero-buttons">
+              <a href="userdash.html" class="btn-primary">
+                Ship a Parcel Now <i class="fa-solid fa-arrow-right"></i>
+              </a>
+              <a href="#sizing-guide" class="btn-outline">
+                <i class="fa-solid fa-box-open"></i> Packaging & Rates
+              </a>
+            </div>
+
+            <div class="hero-trust-row">
+              <div class="avatar-stack">
+                <img src="assets/testimonials/amelia.jpg" alt="Client 1">
+                <img src="assets/testimonials/marcus.jpg" alt="Client 2">
+                <img src="assets/testimonials/sophia.jpg" alt="Client 3">
+                <img src="assets/testimonials/james.jpg" alt="Client 4">
+              </div>
+              <div class="hero-rating-text">
+                <strong>4.9 / 5.0 Rating</strong><br>
+                Trusted by 35,000+ businesses & retailers
+              </div>
+            </div>
+
+            <div class="hero-perk-chips">
+              <span class="perk-chip"><i class="fa-solid fa-circle-check"></i> 99.8% On-Time SLA</span>
+              <span class="perk-chip"><i class="fa-solid fa-circle-check"></i> Automated API & Bulk Labels</span>
+              <span class="perk-chip"><i class="fa-solid fa-circle-check"></i> $5,000 Free Coverage</span>
+            </div>
+          </div>
+
+          <!-- Hero Right Column: Interactive Parcel Command Hub Widget -->
+          <div class="home2-hero-right reveal">
+            <div class="command-hub-card">
+              
+              <!-- Tab Navigation -->
+              <div class="hub-tabs">
+                <button class="hub-tab-btn active" id="tab-btn-radar" onclick="switchHubTab('radar')">
+                  <i class="fa-solid fa-satellite-dish"></i> Live Package Radar
+                </button>
+                <button class="hub-tab-btn" id="tab-btn-calc" onclick="switchHubTab('calc')">
+                  <i class="fa-solid fa-calculator"></i> Quick Rate Quote
+                </button>
+              </div>
+
+              <!-- TAB 1: LIVE RADAR -->
+              <div class="hub-tab-content active" id="hub-content-radar">
+                <div class="quick-track-bar">
+                  <input type="text" id="tracking-input" value="SWP-8924-US" placeholder="Enter Tracking Number">
+                  <button class="btn-primary btn-sm" onclick="trackSamplePackage(document.getElementById('tracking-input').value)">
+                    <i class="fa-solid fa-magnifying-glass"></i> Track
+                  </button>
+                </div>
+
+                <div class="track-sample-chips">
+                  <span class="sample-label">Quick samples:</span>
+                  <button class="chip-btn active" onclick="trackSamplePackage('SWP-8924-US', 'Austin, TX', 'In Transit · Out for Delivery', 'Today by 3:45 PM', 'David Vance', 'Freight Van #402', 3)">SWP-8924-US (Austin)</button>
+                  <button class="chip-btn" onclick="trackSamplePackage('SWP-7102-NY', 'New York, NY', 'Departed Central Sort Hub', 'Tomorrow, 10:00 AM', 'Air Dispatch 72', 'Cargo Jet #88', 2)">SWP-7102-NY (New York)</button>
+                  <button class="chip-btn" onclick="trackSamplePackage('SWP-3401-CHI', 'Chicago, IL', 'Delivered & Signed', 'Delivered Today', 'Marcus Ray', 'Local Van #11', 4)">SWP-3401-CHI (Delivered)</button>
+                </div>
+
+                <div class="live-route-box">
+                  <div class="route-header">
+                    <div>
+                      <div class="route-code" id="live-track-code">SWP-8924-US</div>
+                      <div style="font-size: 11.5px; color: var(--color-secondary-text);" id="live-track-dest">Destination: Austin Distribution Hub, TX</div>
+                    </div>
+                    <span class="route-status-pill" id="live-track-status">
+                      <span class="pulse-dot"></span> Out for Delivery
+                    </span>
+                  </div>
+
+                  <!-- Visual Stepper Progress -->
+                  <div class="journey-stepper" id="live-stepper">
+                    <div class="journey-step done">
+                      <div class="step-bullet"><i class="fa-solid fa-check"></i></div>
+                      <div class="step-name">Picked Up</div>
+                    </div>
+                    <div class="journey-step done">
+                      <div class="step-bullet"><i class="fa-solid fa-check"></i></div>
+                      <div class="step-name">Sort Hub</div>
+                    </div>
+                    <div class="journey-step active">
+                      <div class="step-bullet"><i class="fa-solid fa-truck-fast"></i></div>
+                      <div class="step-name">In Transit</div>
+                    </div>
+                    <div class="journey-step">
+                      <div class="step-bullet"><i class="fa-solid fa-house"></i></div>
+                      <div class="step-name">Delivered</div>
+                    </div>
+                  </div>
+
+                  <div class="telemetry-row">
+                    <div class="tel-item">
+                      <div class="tel-label">Assigned Carrier</div>
+                      <div class="tel-val" id="tel-driver">David Vance</div>
+                    </div>
+                    <div class="tel-item">
+                      <div class="tel-label">Vehicle Fleet</div>
+                      <div class="tel-val" id="tel-vehicle">Van #402</div>
+                    </div>
+                    <div class="tel-item">
+                      <div class="tel-label">Estimated ETA</div>
+                      <div class="tel-val" id="tel-eta" style="color: #10B981;">3:45 PM Today</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="display: flex; gap: 8px;">
+                  <a href="userdash.html" class="btn-primary" style="flex: 1; font-size: 14px; min-height: 42px;">
+                    View Live Telemetry <i class="fa-solid fa-arrow-right"></i>
+                  </a>
+                  <a href="contact.html" class="btn-ghost" style="font-size: 14px; min-height: 42px;">
+                    <i class="fa-solid fa-headset"></i> Support
+                  </a>
+                </div>
+              </div>
+
+              <!-- TAB 2: QUICK RATE CALCULATOR -->
+              <div class="hub-tab-content" id="hub-content-calc">
+                <div class="calc-row">
+                  <label class="calc-label">Select Package Size</label>
+                  <div class="size-selector-grid">
+                    <div class="size-option-btn active" onclick="selectRateSize(this, 8.50)">
+                      <i class="fa-solid fa-envelope"></i>
+                      <span>Small Box</span>
+                    </div>
+                    <div class="size-option-btn" onclick="selectRateSize(this, 14.20)">
+                      <i class="fa-solid fa-box"></i>
+                      <span>Medium</span>
+                    </div>
+                    <div class="size-option-btn" onclick="selectRateSize(this, 28.50)">
+                      <i class="fa-solid fa-boxes-stacked"></i>
+                      <span>Heavy Box</span>
+                    </div>
+                    <div class="size-option-btn" onclick="selectRateSize(this, 115.00)">
+                      <i class="fa-solid fa-pallet"></i>
+                      <span>Pallet</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="calc-inputs-grid">
+                  <div class="calc-input-wrap">
+                    <label>From ZIP Code</label>
+                    <input type="text" id="from-zip" value="10001" maxlength="5">
+                  </div>
+                  <div class="calc-input-wrap">
+                    <label>To ZIP Code</label>
+                    <input type="text" id="to-zip" value="90210" maxlength="5">
+                  </div>
+                </div>
+
+                <div class="calc-input-wrap" style="margin-bottom: 16px;">
+                  <label>Package Weight (kg)</label>
+                  <input type="number" id="calc-weight" value="2.5" min="0.5" step="0.5" oninput="recalcHeroRate()">
+                </div>
+
+                <div class="rate-quote-banner">
+                  <div>
+                    <div class="quote-title">Estimated Shipping Rate</div>
+                    <div style="font-size: 11px; color: var(--color-secondary-text);">Guaranteed Next-Day Delivery Included</div>
+                  </div>
+                  <div class="quote-val" id="quote-display">$14.50</div>
+                </div>
+
+                <a href="pricing.html" class="btn-primary" style="width: 100%; font-size: 14.5px;">
+                  Book at This Rate <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 2: OPERATIONAL METRICS TICKER & BENTO SOLUTIONS SHOWCASE
+         ================================================================ -->
+    <div class="metrics-ticker-strip">
+      <div class="container">
+        <div class="metrics-grid stagger">
+          <div class="metric-card">
+            <div class="metric-num">15M+</div>
+            <div class="metric-label">Parcels Shipped Nationwide</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-num">50+</div>
+            <div class="metric-label">Regional Sort Hubs & Depots</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-num">99.8%</div>
+            <div class="metric-label">On-Time Delivery SLA</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-num">100%</div>
+            <div class="metric-label">Carbon-Neutral Delivery Fleet</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BENTO SOLUTIONS GRID -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="tag"><i class="fa-solid fa-cubes-stacked"></i> Logistics Capabilities</div>
+          <h2>Nationwide Shipping Solutions for Every Business</h2>
+          <p>Whether you're an e-commerce retailer or an enterprise warehouse, our modern logistics infrastructure handles your parcel flow seamlessly.</p>
+        </div>
+
+        <div class="bento-grid stagger">
+          
+          <!-- Bento 1: Large Wide Feature -->
+          <div class="bento-card bento-wide">
+            <div class="bento-img-wrap">
+              <img src="assets/images/ecommerce.jpg" alt="E-Commerce Fulfillment">
+              <span class="bento-tag-pill"><i class="fa-solid fa-bolt"></i> High Volume Leader</span>
+            </div>
+            <div class="bento-content">
+              <h3>E-Commerce Fulfillment & Automated Returns</h3>
+              <p>Plug into Shopify, WooCommerce, or Amazon in under 5 minutes. Automated batch label generation, discounted commercial parcel postage, and frictionless QR-code returns for your shoppers.</p>
+              <ul class="bento-features">
+                <li><i class="fa-solid fa-check"></i> <span>Same-day warehouse pickup and cut-off times as late as 7:00 PM</span></li>
+                <li><i class="fa-solid fa-check"></i> <span>Branded tracking pages with live SMS and WhatsApp alerts</span></li>
+                <li><i class="fa-solid fa-check"></i> <span>Up to 38% postage savings on bulk parcel tiers</span></li>
+              </ul>
+              <div class="bento-btn-wrap">
+                <a href="services.html" class="btn-primary">
+                  Explore Fulfillment <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bento 2: Air Cargo Freight -->
+          <div class="bento-card">
+            <div class="bento-img-wrap">
+              <img src="assets/images/airport.jpg" alt="Express Air Cargo">
+              <span class="bento-tag-pill"><i class="fa-solid fa-plane"></i> Priority Speed</span>
+            </div>
+            <div class="bento-content">
+              <h3>Next-Day Nationwide Air Freight</h3>
+              <p>Coast-to-coast overnight parcel deliveries connecting 250+ airport logistical gateways with guaranteed morning delivery windows and expedited ramp handling.</p>
+              <ul class="bento-features">
+                <li><i class="fa-solid fa-check"></i> <span>Delivery by 10:30 AM next business day nationwide</span></li>
+                <li><i class="fa-solid fa-check"></i> <span>Priority airport security routing & tarmac transfer</span></li>
+                <li><i class="fa-solid fa-check"></i> <span>Real-time GPS flight & tarmac telemetry tracking</span></li>
+              </ul>
+              <div class="bento-btn-wrap">
+                <a href="services.html" class="btn-outline">
+                  Air Freight Details <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bento 3: Heavy Freight & Pallets -->
+          <div class="bento-card">
+            <div class="bento-img-wrap">
+              <img src="assets/images/services/service-freight.jpg" alt="Heavy Freight Logistics">
+              <span class="bento-tag-pill"><i class="fa-solid fa-truck"></i> Commercial B2B</span>
+            </div>
+            <div class="bento-content">
+              <h3>Pallet Distribution & Heavy Cargo</h3>
+              <p>LTL and FTL freight transportation for multi-box orders, machinery parts, and industrial equipment up to 1,000 kg with dedicated linehaul scheduling.</p>
+              <ul class="bento-features">
+                <li><i class="fa-solid fa-check"></i> <span>Hydraulic lift-gate vehicles included at no extra fee</span></li>
+                <li><i class="fa-solid fa-check"></i> <span>Direct warehouse dock-to-dock routing & cross-docking</span></li>
+                <li><i class="fa-solid fa-check"></i> <span>Heavy-duty weatherproof shrink-wrapping & banding</span></li>
+              </ul>
+              <div class="bento-btn-wrap">
+                <a href="services.html" class="btn-outline">
+                  Pallet Shipping <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bento 4: Smart Lockers -->
+          <div class="bento-card bento-wide">
+            <div class="bento-img-wrap">
+              <img src="assets/images/lock.png" alt="Smart Parcel Lockers">
+              <span class="bento-tag-pill"><i class="fa-solid fa-box-archive"></i> Contactless 24/7</span>
+            </div>
+            <div class="bento-content">
+              <h3>Smart Automated Locker Network</h3>
+              <p>Give recipients total freedom with 1,200+ secure, climate-controlled parcel lockers across residential complexes, transit stations, and retail centers.</p>
+              <ul class="bento-features">
+                <li><i class="fa-solid fa-check"></i> <span>Instant Bluetooth and QR code contactless collection</span></li>
+                <li><i class="fa-solid fa-check"></i> <span>Zero missed deliveries and reduced re-attempt overhead</span></li>
+                <li><i class="fa-solid fa-check"></i> <span>7-day holding grace period with automated reminders</span></li>
+              </ul>
+              <div class="bento-btn-wrap">
+                <a href="services.html" class="btn-outline">
+                  Find a Locker Station <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 3: INTERACTIVE PARCEL SIZING & PACKAGING GUIDE (Visual Matrix)
+         ================================================================ -->
+    <section class="section" id="sizing-guide" style="background: var(--color-hover);">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="tag"><i class="fa-solid fa-ruler-combined"></i> Packaging Dimensions</div>
+          <h2>Find the Perfect Package Tier for Your Shipment</h2>
+          <p>Accurate sizing prevents unexpected dimensional weight surcharges. Compare standard packaging sizes with transparent flat rates.</p>
+        </div>
+
+        <div class="parcel-matrix-grid stagger">
+          
+          <!-- Small Box -->
+          <div class="matrix-card">
+            <div class="matrix-img-wrap">
+              <img src="assets/images/home2/parcel-small.jpg" alt="Small Parcel Packaging">
+            </div>
+            <div class="matrix-content">
+              <span class="matrix-weight-badge">Up to 3 kg (6.6 lbs)</span>
+              <h3>Small Parcel & Polymailer</h3>
+              <p>Ideal for cosmetics, mobile accessories, jewellery, documents, and apparel.</p>
+              <div class="matrix-specs">
+                <span><strong>Max Size:</strong> <span>30 × 20 × 10 cm</span></span>
+                <span><strong>Delivery:</strong> <span>Next-Day / 2-Day</span></span>
+                <span><strong>Tracking:</strong> <span>Real-Time GPS Included</span></span>
+              </div>
+              <div class="matrix-price-row">
+                <span class="matrix-from">Nationwide from</span>
+                <span class="matrix-cost">$6.50</span>
+              </div>
+              <div class="matrix-btn-wrap">
+                <a href="pricing.html" class="btn-outline">
+                  Ship Small Box <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Medium Box (Featured / Most Popular) -->
+          <div class="matrix-card featured-card">
+            <div class="matrix-img-wrap">
+              <img src="assets/images/home2/parcel-medium.jpg" alt="Medium Parcel Box">
+              <span class="matrix-popular-badge"><i class="fa-solid fa-star"></i> Most Popular</span>
+            </div>
+            <div class="matrix-content">
+              <span class="matrix-weight-badge">Up to 15 kg (33 lbs)</span>
+              <h3>Standard Parcel Carton</h3>
+              <p>The standard choice for footwear, small appliances, multiple books, and clothing orders.</p>
+              <div class="matrix-specs">
+                <span><strong>Max Size:</strong> <span>50 × 40 × 30 cm</span></span>
+                <span><strong>Delivery:</strong> <span>24–48 Hours</span></span>
+                <span><strong>Insurance:</strong> <span>Up to $500 Included</span></span>
+              </div>
+              <div class="matrix-price-row">
+                <span class="matrix-from">Nationwide from</span>
+                <span class="matrix-cost">$14.00</span>
+              </div>
+              <div class="matrix-btn-wrap">
+                <a href="pricing.html" class="btn-primary">
+                  Ship Standard Box <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Heavy Box -->
+          <div class="matrix-card">
+            <div class="matrix-img-wrap">
+              <img src="assets/images/home2/parcel-large.jpg" alt="Heavy Cargo Box">
+            </div>
+            <div class="matrix-content">
+              <span class="matrix-weight-badge">Up to 40 kg (88 lbs)</span>
+              <h3>Heavy Carton & Multi-Box</h3>
+              <p>Built for industrial tools, kitchen appliances, auto parts, and bulk trade inventory.</p>
+              <div class="matrix-specs">
+                <span><strong>Max Size:</strong> <span>100 × 70 × 60 cm</span></span>
+                <span><strong>Delivery:</strong> <span>2–3 Business Days</span></span>
+                <span><strong>Handling:</strong> <span>Two-Person Care Team</span></span>
+              </div>
+              <div class="matrix-price-row">
+                <span class="matrix-from">Nationwide from</span>
+                <span class="matrix-cost">$28.00</span>
+              </div>
+              <div class="matrix-btn-wrap">
+                <a href="pricing.html" class="btn-outline">
+                  Ship Heavy Carton <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pallet Freight -->
+          <div class="matrix-card">
+            <div class="matrix-img-wrap">
+              <img src="assets/images/home2/parcel-pallet.jpg" alt="Commercial Pallet Logistics">
+            </div>
+            <div class="matrix-content">
+              <span class="matrix-weight-badge">Up to 1,000 kg</span>
+              <h3>Commercial Pallet & Freight</h3>
+              <p>Standard Euro & US pallets shrink-wrapped for heavy commercial manufacturing transport.</p>
+              <div class="matrix-specs">
+                <span><strong>Base Size:</strong> <span>120 × 80 cm Euro</span></span>
+                <span><strong>Transit:</strong> <span>Scheduled LTL / FTL</span></span>
+                <span><strong>Equipment:</strong> <span>Tail-Lift / Forklift Ready</span></span>
+              </div>
+              <div class="matrix-price-row">
+                <span class="matrix-from">Nationwide from</span>
+                <span class="matrix-cost">$120.00</span>
+              </div>
+              <div class="matrix-btn-wrap">
+                <a href="pricing.html" class="btn-outline">
+                  Book Pallet Freight <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 4: 5-STAGE VISUAL PARCEL JOURNEY
+         ================================================================ -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="tag"><i class="fa-solid fa-route"></i> Complete Transparency</div>
+          <h2>Follow Your Parcel's Journey from Doorstep to Destination</h2>
+          <p>Every parcel passes through optical scanning, automated weight verification, and live telemetry checkpoints.</p>
+        </div>
+
+        <div class="journey-cards-grid stagger">
+          
+          <div class="journey-stage-card">
+            <div class="stage-img-wrap">
+              <img src="assets/images/home2/door-to-door-pick-up-service-500x500.webp" alt="Pickup and Scanning">
+              <div class="stage-number">1</div>
+            </div>
+            <div class="stage-content">
+              <h4>Doorstep Pickup</h4>
+              <p>Our courier arrives with handheld laser terminals to scan and verify weight in real time.</p>
+            </div>
+          </div>
+
+          <div class="journey-stage-card">
+            <div class="stage-img-wrap">
+              <img src="assets/optical_sizing_hub_sort.jpg" alt="Automated Sorting">
+              <div class="stage-number">2</div>
+            </div>
+            <div class="stage-content">
+              <h4>Optical Sizing & Hub Sort</h4>
+              <p>High-speed conveyor belts route packages at 12,000 items/hr to destination bays.</p>
+            </div>
+          </div>
+
+          <div class="journey-stage-card">
+            <div class="stage-img-wrap">
+              <img src="assets/interstate_air_transit.jpg" alt="Long-Haul Transit">
+              <div class="stage-number">3</div>
+            </div>
+            <div class="stage-content">
+              <h4>Interstate & Air Transit</h4>
+              <p>Climate-monitored vehicles and air cargo routes move parcels overnight between hubs.</p>
+            </div>
+          </div>
+
+          <div class="journey-stage-card">
+            <div class="stage-img-wrap">
+              <img src="assets/last_mile_dispatch.jpg" alt="Local Dispatch Fleet">
+              <div class="stage-number">4</div>
+            </div>
+            <div class="stage-content">
+              <h4>Last-Mile Dispatch</h4>
+              <p>Local electric delivery vans receive route-optimized itineraries for prompt delivery.</p>
+            </div>
+          </div>
+
+          <div class="journey-stage-card">
+            <div class="stage-img-wrap">
+              <img src="assets/verified_photo_proof.jpg" alt="Photo Proof of Delivery">
+              <div class="stage-number">5</div>
+            </div>
+            <div class="stage-content">
+              <h4>Verified Photo Proof</h4>
+              <p>Digital signature and instant timestamped photo proof uploaded directly to your dashboard.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 5: ECO-FRIENDLY & SUSTAINABLE GREEN FLEET
+         ================================================================ -->
+    <section class="section" style="background: var(--color-hover);">
+      <div class="container">
+        <div class="enterprise-grid">
+          
+          <div class="enterprise-left reveal">
+            <div class="section-header" style="text-align: left; margin: 0 0 24px;">
+              <div class="tag" style="background: rgba(16, 185, 129, 0.12); color: #10B981; border-color: rgba(16, 185, 129, 0.25);">
+                <i class="fa-solid fa-leaf"></i> Sustainable & Green Logistics
+              </div>
+              <h2>Zero-Emission Deliveries for a Cleaner Planet</h2>
+              <p>We are driving the future of sustainable freight. By combining 100% electric delivery vans, carbon-neutral sorting hubs, and recyclable bio-packaging, we help brands slash supply chain emissions without compromising delivery speeds.</p>
+            </div>
+
+            <div class="enterprise-features-list">
+              <div class="ent-item">
+                <div class="ent-icon" style="background: rgba(16, 185, 129, 0.12); color: #10B981; border-color: rgba(16, 185, 129, 0.25);">
+                  <i class="fa-solid fa-bolt"></i>
+                </div>
+                <div class="ent-details">
+                  <h4>100% Electric Last-Mile Van Fleet</h4>
+                  <p>Our metropolitan delivery network is powered by state-of-the-art electric delivery vans and e-cargo bikes, cutting tailpipe emissions to zero across urban centers.</p>
+                </div>
+              </div>
+              <div class="ent-item">
+                <div class="ent-icon" style="background: rgba(16, 185, 129, 0.12); color: #10B981; border-color: rgba(16, 185, 129, 0.25);">
+                  <i class="fa-solid fa-chart-pie"></i>
+                </div>
+                <div class="ent-details">
+                  <h4>Real-Time Carbon Offset & ESG Telemetry</h4>
+                  <p>Track exact CO₂ emissions saved per parcel with downloadable audit-ready ESG reporting and verified carbon-neutral offset certificates for every shipment.</p>
+                </div>
+              </div>
+              <div class="ent-item">
+                <div class="ent-icon" style="background: rgba(16, 185, 129, 0.12); color: #10B981; border-color: rgba(16, 185, 129, 0.25);">
+                  <i class="fa-solid fa-box-open"></i>
+                </div>
+                <div class="ent-details">
+                  <h4>100% Biodegradable & Recycled Packaging</h4>
+                  <p>Ship with FSC-certified corrugated boxes, water-soluble starch padding, and reusable parcel wraps that eliminate 94% of single-use plastic waste.</p>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top: 32px; display: flex; gap: 14px; flex-wrap: wrap;">
+              <a href="about.html" class="btn-primary" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); border-color: #059669; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);">
+                Our Green Mission <i class="fa-solid fa-arrow-right"></i>
+              </a>
+              <a href="pricing.html" class="btn-outline">
+                <i class="fa-solid fa-calculator"></i> Calculate Carbon Savings
+              </a>
+            </div>
+          </div>
+
+          <!-- Eco-Dashboard Visual Card Preview -->
+          <div class="enterprise-right reveal">
+            <div class="eco-dashboard-card">
+              <div class="eco-card-header">
+                <div class="eco-pulse-badge">
+                  <span class="eco-pulse-dot"></span>
+                  <span>SwiftEco™ Fleet Telemetry</span>
+                </div>
+                <span class="eco-badge-tag">
+                  <i class="fa-solid fa-seedling"></i> Net-Zero 2030
+                </span>
+              </div>
+              
+              <div class="eco-visual-banner">
+                <img src="assets/images/about/about-fleet.jpg" alt="SwiftParcel Green Electric Delivery Fleet">
+                <div class="eco-banner-overlay">
+                  <div class="eco-banner-top">
+                    <span class="eco-chip"><i class="fa-solid fa-bolt" style="color: #34D399;"></i> 100% EV Active</span>
+                    <span class="eco-chip"><i class="fa-solid fa-wifi"></i> Telemetry Live</span>
+                  </div>
+                  <div class="eco-banner-bottom">
+                    <div>
+                      <h5>Metro Clean Fleet · Unit EV-204</h5>
+                      <span>Route: Central Hub ➔ Eco Distribution Zone</span>
+                    </div>
+                    <span class="eco-chip" style="background: rgba(16, 185, 129, 0.7); font-weight: 700;">
+                      <i class="fa-solid fa-battery-three-quarters"></i> 92% Battery
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="eco-body-stats">
+                <div class="eco-stat-grid">
+                  <div class="eco-stat-box">
+                    <div class="eco-val">-42.8%</div>
+                    <div class="eco-lbl">CO₂ Reduction</div>
+                    <div class="eco-sub">vs. Diesel Fleet</div>
+                  </div>
+                  <div class="eco-stat-box">
+                    <div class="eco-val">1.48M</div>
+                    <div class="eco-lbl">kg Offset YTD</div>
+                    <div class="eco-sub">Verified Impact</div>
+                  </div>
+                  <div class="eco-stat-box">
+                    <div class="eco-val">100%</div>
+                    <div class="eco-lbl">Eco Packaging</div>
+                    <div class="eco-sub">FSC-Certified</div>
+                  </div>
+                </div>
+
+                <div class="eco-progress-wrap">
+                  <div class="eco-progress-header">
+                    <span><i class="fa-solid fa-circle-check" style="color: #10B981; margin-right: 6px;"></i> Daily Clean Routing Score</span>
+                    <span style="color: #10B981; font-weight: 800;">96.4%</span>
+                  </div>
+                  <div class="eco-progress-bar">
+                    <div class="eco-progress-fill"></div>
+                  </div>
+                  <div class="eco-footer-row">
+                    <span><i class="fa-solid fa-shield-halved" style="margin-right: 4px;"></i> ISO 14064 Carbon Audited</span>
+                    <span>Zero Tailpipe Carbon</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 6: CASE STUDY SPOTLIGHT & CLIENT TESTIMONIALS
+         ================================================================ -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="tag"><i class="fa-solid fa-star"></i> Proven Track Record</div>
+          <h2>Trusted by 35,000+ Fast-Growing Brands</h2>
+          <p>Read how enterprise retailers and high-growth eCommerce merchants cut logistics expenses while accelerating shipment speeds.</p>
+        </div>
+
+        <div class="case-reviews-grid">
+          
+          <!-- Case Study Spotlight -->
+          <div class="case-spotlight-card reveal">
+            <div class="spotlight-img">
+              <img src="assets/images/monthly.avif" alt="Lumina Apparel Case Study">
+              <span class="spotlight-badge"><i class="fa-solid fa-award"></i> Featured Case Study</span>
+            </div>
+            <div class="spotlight-content">
+              <h3>How Lumina Apparel Scaled to 35,000 Monthly Parcel Shipments</h3>
+              <p style="font-size: 14.5px; color: var(--color-secondary-text); line-height: 1.6;">
+                "Switching our national fulfillment to SwiftParcel gave us automated same-day dispatch and eliminated customer transit inquiries. Our checkout conversion increased immediately after displaying guaranteed delivery dates."
+              </p>
+              
+              <div class="spotlight-stats">
+                <div>
+                  <div class="sp-num">+46%</div>
+                  <div class="sp-label">Faster Transit</div>
+                </div>
+                <div>
+                  <div class="sp-num">-32%</div>
+                  <div class="sp-label">Postage Overhead</div>
+                </div>
+                <div>
+                  <div class="sp-num">99.9%</div>
+                  <div class="sp-label">SLA Compliance</div>
+                </div>
+              </div>
+
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div>
+                  <strong style="font-size: 15px; color: var(--color-primary-text);">Elena Rostova</strong>
+                  <div style="font-size: 12.5px; color: var(--color-secondary-text);">VP Logistics, Lumina Apparel</div>
+                </div>
+                <div style="color: #F59E0B; font-size: 14px;">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reviews Stack -->
+          <div class="reviews-stack stagger">
+            
+            <div class="review-mini-card">
+              <div class="review-top">
+                <img src="assets/testimonials/james.jpg" alt="James D.">
+                <div>
+                  <div class="reviewer-name">James Dalton</div>
+                  <div class="reviewer-title">Director of Operations, Kinesis Retail</div>
+                </div>
+                <div class="review-stars">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+              <p class="review-text">
+                "We ship heavy pallets and cartons across the Midwest. The live driver telemetry and automated billing save our warehouse team 15 hours every single week."
+              </p>
+            </div>
+
+            <div class="review-mini-card">
+              <div class="review-top">
+                <img src="assets/testimonials/sarah.jpg" alt="Sarah M.">
+                <div>
+                  <div class="reviewer-name">Sarah Mitchell</div>
+                  <div class="reviewer-title">Founder, PureGlow Cosmetics</div>
+                </div>
+                <div class="review-stars">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+              <p class="review-text">
+                "Our customers adore the live package radar. Damaged package rates dropped to near zero, and the locker pickup option is a massive hit with apartment dwellers."
+              </p>
+            </div>
+
+            <div class="review-mini-card">
+              <div class="review-top">
+                <img src="assets/testimonials/rajesh.jpg" alt="Rajesh K.">
+                <div>
+                  <div class="reviewer-name">Rajesh Kumar</div>
+                  <div class="reviewer-title">Supply Chain Lead, Delta Precision</div>
+                </div>
+                <div class="review-stars">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+              <p class="review-text">
+                "Their REST API integration was up in half an afternoon. Automated batch printing and transparent volume discounts make SwiftParcel our sole logistics partner."
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 7: ENTERPRISE CTA SECTION (Fixed Container Padding)
+         ================================================================ -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-card reveal">
+          <h2>Ready to Scale Your Nationwide Parcel Delivery?</h2>
+          <p>Join over 35,000 businesses sending parcels and pallets nationwide with live telemetry, automated labels, and volume pricing.</p>
+          <div class="cta-buttons">
+            <a href="signup.html" class="cta-btn-white">
+              Open Business Account <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="contact.html" class="cta-btn-ghost">
+              <i class="fa-solid fa-headset"></i> Talk to Logistics Expert
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================================================================
+       FOOTER
+       ================================================================ -->
+  <footer id="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">
+            <div class="nav-logo-icon"><i class="fa-solid fa-truck-fast"></i></div>
+            <span>Swift<em>Parcel</em></span>
+          </div>
+          <p class="footer-desc">
+            Nationwide parcel logistics, express air freight, smart lockers, and enterprise e-commerce shipping solutions.
+          </p>
+          <div class="footer-social">
+            <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-angle-right"></i> Home 1 (Courier)</a></li>
+            <li><a href="home2.html"><i class="fa-solid fa-angle-right"></i> Home 2 (Parcel)</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-angle-right"></i> About Us</a></li>
+            <li><a href="pricing.html"><i class="fa-solid fa-angle-right"></i> Pricing & Rates</a></li>
+            <li><a href="process.html"><i class="fa-solid fa-angle-right"></i> Shipping Process</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-angle-right"></i> Contact Support</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Logistics Services</h4>
+          <ul class="footer-links">
+            <li><a href="services.html"><i class="fa-solid fa-angle-right"></i> Express Parcel Delivery</a></li>
+            <li><a href="services.html"><i class="fa-solid fa-angle-right"></i> Nationwide Air Freight</a></li>
+            <li><a href="services.html"><i class="fa-solid fa-angle-right"></i> Heavy Pallet Shipping</a></li>
+            <li><a href="services.html"><i class="fa-solid fa-angle-right"></i> E-Commerce Fulfillment</a></li>
+            <li><a href="services.html"><i class="fa-solid fa-angle-right"></i> Smart Locker Access</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Get in Touch</h4>
+          <ul class="footer-contact">
+            <li>
+              <i class="fa-solid fa-location-dot"></i>
+              <span>101 Logistics Blvd, Suite 400<br>New York, NY 10001</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-phone"></i>
+              <a href="tel:+18005550199" style="color: inherit;">+1 (800) 555-0199</a>
+            </li>
+            <li>
+              <i class="fa-solid fa-envelope"></i>
+              <a href="mailto:support@swiftparcel.com" style="color: inherit;">support@swiftparcel.com</a>
+            </li>
+          </ul>
+          <div class="footer-newsletter">
+            <input type="email" placeholder="Your work email">
+            <button>Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 SwiftParcel Logistics. All rights reserved. Built for speed, reliability, and scale.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================================================================
+       MOBILE DRAWER
+       ================================================================ -->
+  <div id="mobile-menu-drawer">
+    <div id="drawer-backdrop"></div>
+    <div id="drawer-content">
+      <div class="drawer-header">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-icon"><i class="fa-solid fa-truck-fast"></i></div>
+          <div class="nav-logo-text">Swift<span>Parcel</span></div>
+        </a>
+        <div class="drawer-header-actions" style="display: flex; gap: 8px;">
+          <button id="drawer-theme-toggle" class="nav-icon-btn" title="Toggle theme">
+            <svg class="w-5 h-5 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            <svg class="w-5 h-5 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+          </button>
+          <button id="drawer-lang-icon" class="nav-icon-btn" title="Toggle RTL">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" /></svg>
+          </button>
+          <button id="mobile-menu-close" class="nav-icon-btn" aria-label="Close menu">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+      </div>
+      <nav class="drawer-nav">
+        <button id="mobile-homes-toggle">
+          Home <i class="fa-solid fa-chevron-down text-[11px] opacity-60" id="homes-icon"></i>
+        </button>
+        <div class="drawer-sub open" id="mobile-homes-menu">
+          <a href="index.html">Home 1 (Courier)</a>
+          <a href="home2.html" class="active">Home 2 (Parcel)</a>
+        </div>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="process.html">Process</a>
+        <a href="contact.html">Contact</a>
+        <button id="mobile-dashboard-toggle">
+          Dashboard <i class="fa-solid fa-chevron-down text-[11px] opacity-60" id="dashboard-icon"></i>
+        </button>
+        <div class="drawer-sub" id="mobile-dashboard-menu">
+          <a href="admin.html">Admin Dashboard</a>
+          <a href="userdash.html">Customer Dashboard</a>
+        </div>
+      </nav>
+      <div class="drawer-footer">
+        <a href="login.html" class="btn-outline" style="padding: 11px;">Login</a>
+        <a href="signup.html" class="btn-primary" style="padding: 11px;">Sign Up</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================
+       SCRIPTS & INTERACTIVE COMMAND HUB LOGIC
+       ================================================================ -->
+  <script>
+    // Tab switching in Command Hub
+    function switchHubTab(tabName) {
+      const radarBtn = document.getElementById('tab-btn-radar');
+      const calcBtn = document.getElementById('tab-btn-calc');
+      const radarContent = document.getElementById('hub-content-radar');
+      const calcContent = document.getElementById('hub-content-calc');
+
+      if (tabName === 'radar') {
+        radarBtn.classList.add('active');
+        calcBtn.classList.remove('active');
+        radarContent.classList.add('active');
+        calcContent.classList.remove('active');
+      } else {
+        calcBtn.classList.add('active');
+        radarBtn.classList.remove('active');
+        calcContent.classList.add('active');
+        radarContent.classList.remove('active');
+      }
+    }
+
+    // Sample tracking package updates
+    const SAMPLES = {
+      'SWP-8924-US': {
+        dest: 'Austin Distribution Hub, TX',
+        status: 'Out for Delivery Today',
+        driver: 'David Vance',
+        vehicle: 'Freight Van #402',
+        eta: '3:45 PM Today',
+        stage: 3
+      },
+      'SWP-7102-NY': {
+        dest: 'New York JFK Airport Hub, NY',
+        status: 'Departed Regional Sorting Hub',
+        driver: 'Air Dispatch 72',
+        vehicle: 'Cargo Jet #88',
+        eta: 'Tomorrow, 10:00 AM',
+        stage: 2
+      },
+      'SWP-3401-CHI': {
+        dest: 'Chicago Downtown Logistics Depot, IL',
+        status: 'Delivered & Signed',
+        driver: 'Marcus Ray',
+        vehicle: 'Local Van #11',
+        eta: 'Delivered Today',
+        stage: 4
+      }
+    };
+
+    function trackSamplePackage(code, dest, status, eta, driver, vehicle, stage) {
+      document.getElementById('tracking-input').value = code;
+      const data = SAMPLES[code] || {
+        dest: dest || 'Transit Depot',
+        status: status || 'In Transit',
+        driver: driver || 'Regional Carrier',
+        vehicle: vehicle || 'Express Van',
+        eta: eta || 'Within 24 Hours',
+        stage: stage || 3
+      };
+
+      document.getElementById('live-track-code').textContent = code;
+      document.getElementById('live-track-dest').textContent = 'Destination: ' + data.dest;
+      document.getElementById('live-track-status').innerHTML = '<span class="pulse-dot"></span> ' + data.status;
+      document.getElementById('tel-driver').textContent = data.driver;
+      document.getElementById('tel-vehicle').textContent = data.vehicle;
+      document.getElementById('tel-eta').textContent = data.eta;
+
+      // Update stepper visual
+      const steps = document.querySelectorAll('#live-stepper .journey-step');
+      steps.forEach((st, idx) => {
+        st.classList.remove('done', 'active');
+        if (idx < data.stage - 1) {
+          st.classList.add('done');
+          st.querySelector('.step-bullet').innerHTML = '<i class="fa-solid fa-check"></i>';
+        } else if (idx === data.stage - 1) {
+          st.classList.add('active');
+          st.querySelector('.step-bullet').innerHTML = '<i class="fa-solid fa-truck-fast"></i>';
+        } else {
+          st.querySelector('.step-bullet').innerHTML = '<i class="fa-solid fa-circle text-[6px]"></i>';
+        }
+      });
+
+      // Highlight clicked chip
+      document.querySelectorAll('.track-sample-chips .chip-btn').forEach(b => {
+        if (b.textContent.includes(code.split('-')[1])) b.classList.add('active');
+        else b.classList.remove('active');
+      });
+    }
+
+    // Quick Rate Estimator Calculator
+    let currentBaseRate = 8.50;
+    function selectRateSize(element, baseRate) {
+      document.querySelectorAll('.size-option-btn').forEach(btn => btn.classList.remove('active'));
+      element.classList.add('active');
+      currentBaseRate = baseRate;
+      recalcHeroRate();
+    }
+
+    function recalcHeroRate() {
+      const weight = parseFloat(document.getElementById('calc-weight').value) || 1;
+      const total = (currentBaseRate + (weight * 2.40)).toFixed(2);
+      document.getElementById('quote-display').textContent = '$' + total;
+    }
+
+    // Navbar, Theme, RTL, and Drawer logic
+    document.addEventListener('DOMContentLoaded', () => {
+      const html = document.documentElement;
+
+      // Navbar scroll effect
+      const header = document.getElementById('main-header');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 30) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+      });
+
+      // Theme toggle
+      const themeToggles = [document.getElementById('theme-toggle'), document.getElementById('drawer-theme-toggle')];
+      const lightIcons = document.querySelectorAll('.light-icon');
+      const darkIcons = document.querySelectorAll('.dark-icon');
+
+      const applyTheme = (theme) => {
+        html.setAttribute('data-theme', theme);
+        if (theme === 'dark') {
+          lightIcons.forEach(i => i.classList.add('hidden'));
+          darkIcons.forEach(i => i.classList.remove('hidden'));
+        } else {
+          lightIcons.forEach(i => i.classList.remove('hidden'));
+          darkIcons.forEach(i => i.classList.add('hidden'));
+        }
+      };
+
+      themeToggles.forEach(btn => {
+        if (btn) btn.addEventListener('click', () => {
+          const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+          localStorage.setItem('theme', next);
+          applyTheme(next);
+        });
+      });
+      applyTheme(localStorage.getItem('theme') || 'light');
+
+      // RTL toggle
+      const langBtns = [document.getElementById('lang-icon'), document.getElementById('drawer-lang-icon')];
+      langBtns.forEach(btn => {
+        if (btn) {
+          btn.addEventListener('click', () => {
+            const current = localStorage.getItem('language') === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('language', current);
+            html.setAttribute('dir', current === 'ar' ? 'rtl' : 'ltr');
+          });
+        }
+      });
+      html.setAttribute('dir', localStorage.getItem('language') === 'ar' ? 'rtl' : 'ltr');
+
+      // Mobile Menu Drawer
+      const drawer = document.getElementById('mobile-menu-drawer');
+      const openBtn = document.getElementById('mobile-menu-open');
+      const closeBtn = document.getElementById('mobile-menu-close');
+      const backdrop = document.getElementById('drawer-backdrop');
+
+      if (openBtn) openBtn.addEventListener('click', () => drawer.classList.add('open'));
+      if (closeBtn) closeBtn.addEventListener('click', () => drawer.classList.remove('open'));
+      if (backdrop) backdrop.addEventListener('click', () => drawer.classList.remove('open'));
+
+      const homesToggle = document.getElementById('mobile-homes-toggle');
+      const homesMenu = document.getElementById('mobile-homes-menu');
+      if (homesToggle && homesMenu) {
+        homesToggle.addEventListener('click', () => homesMenu.classList.toggle('open'));
+      }
+
+      const dashToggle = document.getElementById('mobile-dashboard-toggle');
+      const dashMenu = document.getElementById('mobile-dashboard-menu');
+      if (dashToggle && dashMenu) {
+        dashToggle.addEventListener('click', () => dashMenu.classList.toggle('open'));
+      }
+
+      // Scroll reveal
+      const revealElements = document.querySelectorAll('.reveal, .stagger');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+      revealElements.forEach(el => observer.observe(el));
+    });
+  </script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (typeof Lenis !== 'undefined') {
+        const lenis = new Lenis({
+          duration: 1.1,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smooth: true,
+          smoothTouch: false,
+        });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+      }
+    });
+  </script>
+</body>
+</html>

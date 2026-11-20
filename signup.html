@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/fav1.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <title>Sign Up · SwiftParcel · Courier & Parcel Delivery</title>
+  <script src="tailwind.js"></script>
+  <style>
+    /* ================================================================
+       MODERN CLEAN PALETTE
+       ================================================================ */
+    :root, html[data-theme='light'] {
+      --color-background: #FFFFFF;
+      --color-primary-text: #1A2A3A;
+      --color-secondary-text: #5A6E7F;
+      --color-accent: #1E6F9F;
+      --color-accent-2: #F59E0B;
+      --color-accent-light: #EAF3FA;
+      --color-border: #D9E2EC;
+      --color-hover: #F2F7FC;
+      --color-footer-bg: #0F1A24;
+      --color-footer-text: #E8F0F8;
+      --nav-bg: rgba(255, 255, 255, 0.82);
+      --nav-border: rgba(30, 111, 159, 0.10);
+      --card-bg: #FFFFFF;
+      --input-bg: #F2F7FC;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.06);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.08);
+      --gradient-accent: linear-gradient(135deg, #1E6F9F 0%, #14547A 100%);
+      --gradient-accent-soft: linear-gradient(135deg, rgba(30,111,159,0.08) 0%, rgba(20,84,122,0.04) 100%);
+      --gradient-warm: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+      --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+      --color-success: #10B981;
+      --color-danger: #EF4444;
+    }
+    html[data-theme='dark'] {
+      --color-background: #121A22;
+      --color-primary-text: #E8F0F8;
+      --color-secondary-text: #9FB2C2;
+      --color-accent: #4A9ED9;
+      --color-accent-2: #FBBF24;
+      --color-accent-light: #1B2A38;
+      --color-border: #2C3E4E;
+      --color-hover: #1D2A36;
+      --color-footer-bg: #0A1017;
+      --color-footer-text: #D4E2F0;
+      --nav-bg: rgba(18, 26, 34, 0.82);
+      --nav-border: rgba(74, 158, 217, 0.12);
+      --card-bg: #1A242E;
+      --input-bg: #1D2A36;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.35);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.45);
+      --gradient-accent: linear-gradient(135deg, #4A9ED9 0%, #2E7AB5 100%);
+      --gradient-accent-soft: linear-gradient(135deg, rgba(74,158,217,0.10) 0%, rgba(46,122,181,0.05) 100%);
+      --gradient-warm: linear-gradient(135deg, #FBBF24 0%, #D97706 100%);
+      --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+      --color-success: #34D399;
+      --color-danger: #F87171;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      background-color: var(--color-background);
+      color: var(--color-primary-text);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+      overflow-x: hidden; margin: 0; line-height: 1.6;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+    }
+    .text-primary-text { color: var(--color-primary-text); }
+    .text-secondary-text { color: var(--color-secondary-text); }
+    .text-accent { color: var(--color-accent); }
+    .bg-background { background-color: var(--color-background); }
+    .bg-hover { background-color: var(--color-hover); }
+    .bg-card { background-color: var(--card-bg); }
+    .border-border { border-color: var(--color-border); }
+
+    h1, h2, h3, h4, h5, h6 { font-weight: 500 !important; margin: 0; }
+    p { margin: 0; font-weight: 400 !important; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+    @media (min-width: 640px) { .container { padding: 0 28px; } }
+    @media (min-width: 1024px) { .container { padding: 0 40px; } }
+    @media (min-width: 1280px) { .container { padding: 0 56px; } }
+
+    /* ================================================================
+       UNIQUE NAVBAR — Floating Glass Pill
+       ================================================================ */
+    #main-header {
+      position: fixed; top: 16px; left: 50%;
+      transform: translateX(-50%); z-index: 50;
+      width: 96%; max-width: 1280px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--nav-border);
+      border-radius: 9999px;
+      box-shadow: var(--shadow-md);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #main-header.scrolled { box-shadow: var(--shadow-lg); }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; padding: 0 18px;
+    }
+    @media (min-width: 640px) { .nav-inner { padding: 0 22px; } }
+
+    .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav-logo-icon {
+      width: 38px; height: 38px; border-radius: 11px;
+      background: var(--gradient-accent);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 17px;
+      box-shadow: 0 4px 12px rgba(30, 111, 159, 0.30);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .nav-logo:hover .nav-logo-icon {
+      transform: rotate(-8deg) scale(1.06);
+      box-shadow: 0 6px 18px rgba(30, 111, 159, 0.40);
+    }
+    .nav-logo-text {
+      font-size: 21px; font-weight: 800; letter-spacing: -0.5px;
+      color: var(--color-primary-text);
+    }
+    .nav-logo-text span { color: var(--color-accent); }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 2px;
+      background: var(--color-hover);
+      border-radius: 9999px; padding: 4px;
+      border: 1px solid var(--color-border);
+    }
+    .nav-link {
+      position: relative; padding: 7px 14px; border-radius: 9999px;
+      font-size: 13px; font-weight: 600;
+      color: var(--color-secondary-text);
+      transition: all 0.25s ease; white-space: nowrap;
+      display: flex; align-items: center; gap: 5px;
+      background: transparent;
+    }
+    .nav-link:hover { color: var(--color-accent); background: var(--color-background); }
+    .nav-link.active {
+      color: #FFFFFF !important;
+      background: var(--gradient-accent);
+      box-shadow: 0 4px 12px rgba(30, 111, 159, 0.28);
+    }
+    .nav-link:not(.active)::after {
+      content: ''; position: absolute; bottom: 3px; left: 50%;
+      width: 0; height: 2px; background: var(--color-accent);
+      border-radius: 2px; transition: width 0.3s ease, left 0.3s ease;
+    }
+    .nav-link:not(.active):hover::after { width: 40%; left: 30%; }
+
+    .dropdown-wrapper { position: relative; }
+    .dropdown-menu {
+      position: absolute; top: calc(100% + 12px); left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: var(--card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
+      min-width: 210px; z-index: 1000;
+      opacity: 0; visibility: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 8px; overflow: hidden;
+    }
+    .dropdown-wrapper:hover .dropdown-menu {
+      opacity: 1; visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    .dropdown-menu a {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 16px; color: var(--color-primary-text);
+      font-size: 13px; font-weight: 500; border-radius: 10px;
+      transition: all 0.2s ease;
+    }
+    .dropdown-menu a:hover {
+      background: var(--color-hover);
+      color: var(--color-accent); padding-left: 20px;
+    }
+    .dropdown-menu a i {
+      width: 16px; text-align: center;
+      color: var(--color-accent); font-size: 13px;
+    }
+
+    .nav-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .nav-icon-btn {
+      width: 38px; height: 38px; border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-secondary-text);
+      background: transparent; border: 1px solid transparent;
+      transition: all 0.25s ease; font-size: 15px;
+    }
+    .nav-icon-btn:hover {
+      color: var(--color-accent); background: var(--color-hover);
+      border-color: var(--color-border);
+    }
+    .nav-cta {
+      display: flex; align-items: center; gap: 7px;
+      padding: 9px 18px; border-radius: 9999px;
+      background: var(--gradient-accent);
+      color: #FFFFFF; font-weight: 700; font-size: 13px;
+      box-shadow: 0 4px 14px rgba(30, 111, 159, 0.30);
+      transition: all 0.3s ease; white-space: nowrap;
+    }
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(30, 111, 159, 0.40);
+      color: #FFFFFF;
+    }
+    .nav-cta i { font-size: 12px; transition: transform 0.3s ease; }
+    .nav-cta:hover i { transform: translateX(3px); }
+
+    .mobile-menu-btn {
+      display: none; width: 42px; height: 42px;
+      border-radius: 12px; align-items: center; justify-content: center;
+      color: var(--color-primary-text); background: var(--color-hover);
+      border: 1px solid var(--color-border); transition: all 0.25s ease;
+    }
+    .mobile-menu-btn:hover { color: var(--color-accent); border-color: var(--color-accent); }
+
+    @media (max-width: 1180px) {
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: flex; }
+      .nav-inner { padding: 0 16px; }
+    }
+    @media (max-width: 640px) {
+      #main-header { top: 10px; width: 94%; }
+      .nav-inner { height: 58px; padding: 0 14px; }
+      .nav-logo-icon { width: 34px; height: 34px; font-size: 15px; border-radius: 10px; }
+      .nav-logo-text { font-size: 17px; }
+      .nav-cta { padding: 7px 14px; font-size: 12px; }
+      .nav-cta i { display: none; }
+      .nav-icon-btn { width: 34px; height: 34px; font-size: 13px; }
+      .mobile-menu-btn { width: 38px; height: 38px; }
+    }
+
+    /* ================================================================
+       BUTTONS
+       ================================================================ */
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: var(--gradient-accent); color: white;
+      padding: 14px 26px; border-radius: 12px;
+      font-weight: 700; font-size: 15px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 14px rgba(30, 111, 159, 0.25);
+      white-space: nowrap;
+      width: 100%;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(30, 111, 159, 0.35);
+      color: white;
+    }
+    .btn-outline {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: transparent; color: var(--color-accent);
+      border: 2px solid var(--color-accent);
+      padding: 12px 24px; border-radius: 12px;
+      font-weight: 700; font-size: 14.5px;
+      transition: all 0.3s ease; white-space: nowrap;
+    }
+    .btn-outline:hover {
+      background: var(--color-accent); color: white;
+      box-shadow: 0 4px 12px rgba(30, 111, 159, 0.25);
+    }
+    .btn-social {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--color-border);
+      color: var(--color-primary-text);
+      font-weight: 700; font-size: 14px;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      flex: 1;
+      min-width: 0;
+    }
+    .btn-social:hover {
+      border-color: var(--color-accent);
+      background: var(--color-hover);
+      transform: translateY(-2px);
+    }
+    .btn-social i { font-size: 16px; }
+    .btn-social.google i { color: #DB4437; }
+    .btn-social.apple i { color: var(--color-primary-text); }
+    .btn-social.microsoft i { color: #00A4EF; }
+
+    /* ================================================================
+       AUTH PAGE — SPLIT SCREEN
+       ================================================================ */
+    .auth-page {
+      flex-grow: 1;
+      padding: 32px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      position: relative;
+      isolation: isolate;
+    }
+    .auth-page::before {
+      content: ''; position: absolute;
+      top: -20%; right: -10%; width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(30,111,159,0.06) 0%, transparent 70%);
+      border-radius: 50%; z-index: 0; pointer-events: none;
+    }
+    .auth-page::after {
+      content: ''; position: absolute;
+      bottom: -20%; left: -10%; width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(245,158,11,0.04) 0%, transparent 70%);
+      border-radius: 50%; z-index: 0; pointer-events: none;
+    }
+    .auth-page .container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1160px;
+    }
+
+    .auth-top-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .auth-top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .auth-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--color-secondary-text);
+      padding: 8px 16px;
+      border-radius: 9999px;
+      background: var(--color-hover);
+      border: 1px solid var(--color-border);
+      transition: all 0.25s ease;
+    }
+    .auth-back-link:hover {
+      color: var(--color-accent);
+      border-color: var(--color-accent);
+      transform: translateX(-3px);
+    }
+
+    .auth-grid {
+      display: grid; grid-template-columns: 1fr; gap: 40px;
+      align-items: stretch;
+      max-width: 1160px; margin: 0 auto;
+    }
+    @media (min-width: 1024px) {
+      .auth-grid { grid-template-columns: 1.15fr 0.85fr; gap: 0; }
+    }
+
+    /* ── Left: Signup Form ── */
+    .auth-form-wrap {
+      background: var(--card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 26px;
+      padding: 40px 34px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+    @media (min-width: 640px) { .auth-form-wrap { padding: 44px 44px; } }
+    @media (min-width: 1024px) {
+      .auth-form-wrap {
+        border-radius: 26px 0 0 26px;
+        border-right: none;
+      }
+    }
+    .auth-form-wrap::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: var(--gradient-accent);
+    }
+
+    .auth-header {
+      margin-bottom: 26px;
+    }
+    .auth-header .auth-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.8px;
+      color: var(--color-accent);
+      background: var(--gradient-accent-soft);
+      padding: 5px 12px; border-radius: 9999px;
+      border: 1px solid var(--color-border);
+      margin-bottom: 16px;
+    }
+    .auth-header h1 {
+      font-size: 30px; font-weight: 800 !important;
+      letter-spacing: -0.6px;
+      color: var(--color-primary-text);
+      margin-bottom: 8px;
+      line-height: 1.15;
+    }
+    @media (min-width: 640px) { .auth-header h1 { font-size: 34px; } }
+    .auth-header p {
+      font-size: 15px; color: var(--color-secondary-text);
+    }
+
+    /* ── Step indicator ── */
+    .step-indicator {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 26px;
+    }
+    .step-dot {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 700;
+      color: var(--color-secondary-text);
+    }
+    .step-dot .dot-num {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--color-hover);
+      border: 1px solid var(--color-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11.5px; font-weight: 800;
+      color: var(--color-secondary-text);
+      transition: all 0.3s ease;
+    }
+    .step-dot.active .dot-num {
+      background: var(--gradient-accent);
+      color: white; border-color: transparent;
+      box-shadow: 0 4px 12px rgba(30, 111, 159, 0.30);
+    }
+    .step-dot.active { color: var(--color-accent); }
+    .step-dot.done .dot-num {
+      background: var(--gradient-success); color: white;
+      border-color: transparent;
+    }
+    .step-line {
+      flex: 1; height: 2px;
+      background: var(--color-border);
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+    }
+    .step-line::before {
+      content: ''; position: absolute;
+      inset: 0; width: 0%;
+      background: var(--gradient-accent);
+      transition: width 0.4s ease;
+    }
+    .step-line.done::before { width: 100%; }
+
+    /* Social signup */
+    .auth-social-row {
+      display: flex; gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .auth-divider {
+      display: flex; align-items: center; gap: 14px;
+      margin: 22px 0;
+      font-size: 12px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.6px;
+      color: var(--color-secondary-text);
+    }
+    .auth-divider::before,
+    .auth-divider::after {
+      content: ''; flex: 1; height: 1px;
+      background: var(--color-border);
+    }
+
+    /* Account type cards */
+    .account-type-grid {
+      display: grid; grid-template-columns: 1fr; gap: 12px;
+      margin-bottom: 22px;
+    }
+    @media (min-width: 500px) { .account-type-grid { grid-template-columns: 1fr 1fr; } }
+
+    .account-type-card {
+      position: relative;
+      padding: 18px 18px 16px;
+      border-radius: 14px;
+      background: var(--input-bg);
+      border: 2px solid var(--color-border);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: left;
+    }
+    .account-type-card:hover {
+      border-color: var(--color-accent);
+      transform: translateY(-2px);
+    }
+    .account-type-card.active {
+      border-color: var(--color-accent);
+      background: var(--gradient-accent-soft);
+      box-shadow: 0 0 0 3px rgba(30, 111, 159, 0.10);
+    }
+    .account-type-card .at-icon {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--color-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; color: var(--color-accent);
+      margin-bottom: 12px;
+      transition: all 0.3s ease;
+    }
+    .account-type-card.active .at-icon {
+      background: var(--gradient-accent);
+      color: white; border-color: transparent;
+    }
+    .account-type-card h4 {
+      font-size: 15px; font-weight: 800 !important;
+      color: var(--color-primary-text);
+      margin-bottom: 4px;
+    }
+    .account-type-card p {
+      font-size: 12.5px;
+      color: var(--color-secondary-text);
+      line-height: 1.5;
+    }
+    .account-type-card .at-check {
+      position: absolute;
+      top: 14px; right: 14px;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--color-hover);
+      border: 2px solid var(--color-border);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .account-type-card .at-check i {
+      font-size: 11px; color: white; opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .account-type-card.active .at-check {
+      background: var(--gradient-accent); border-color: transparent;
+    }
+    .account-type-card.active .at-check i { opacity: 1; }
+
+    /* Form fields */
+    .auth-field { margin-bottom: 16px; }
+    .auth-field label {
+      display: block;
+      font-size: 12px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      color: var(--color-secondary-text);
+      margin-bottom: 8px;
+    }
+    .auth-field label .optional {
+      font-size: 11px;
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 600;
+      color: var(--color-secondary-text);
+      opacity: 0.75;
+    }
+    .auth-input-wrap {
+      position: relative;
+    }
+    .auth-input-wrap i.input-icon {
+      position: absolute;
+      left: 16px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-secondary-text);
+      font-size: 14px;
+      pointer-events: none;
+      transition: color 0.25s ease;
+    }
+    .auth-input-wrap input,
+    .auth-input-wrap select {
+      width: 100%;
+      padding: 14px 14px 14px 44px;
+      border-radius: 12px;
+      background: var(--input-bg);
+      border: 1px solid var(--color-border);
+      color: var(--color-primary-text);
+      font-size: 14.5px; font-weight: 500;
+      outline: none;
+      transition: all 0.25s ease;
+      font-family: inherit;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .auth-input-wrap input:focus,
+    .auth-input-wrap select:focus {
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px rgba(30, 111, 159, 0.12);
+      background: var(--card-bg);
+    }
+    .auth-input-wrap input:focus + i.input-icon,
+    .auth-input-wrap input:focus ~ i.input-icon,
+    .auth-input-wrap select:focus + i.input-icon,
+    .auth-input-wrap select:focus ~ i.input-icon {
+      color: var(--color-accent);
+    }
+    .auth-input-wrap .select-arrow {
+      position: absolute;
+      right: 16px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-secondary-text);
+      font-size: 12px;
+      pointer-events: none;
+    }
+    .auth-input-wrap .password-toggle {
+      position: absolute;
+      right: 14px; top: 50%;
+      transform: translateY(-50%);
+      background: none; border: none;
+      color: var(--color-secondary-text);
+      font-size: 14px;
+      cursor: pointer;
+      padding: 6px;
+      transition: color 0.25s ease;
+    }
+    .auth-input-wrap .password-toggle:hover { color: var(--color-accent); }
+
+    /* Password strength */
+    .pw-strength {
+      display: flex; align-items: center; gap: 8px;
+      margin-top: 8px;
+    }
+    .pw-bar {
+      flex: 1; height: 4px; border-radius: 9999px;
+      background: var(--color-border);
+      overflow: hidden;
+    }
+    .pw-bar span {
+      display: block; height: 100%; width: 0%;
+      border-radius: 9999px;
+      transition: all 0.4s ease;
+    }
+    .pw-label {
+      font-size: 11px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.4px;
+      color: var(--color-secondary-text);
+      min-width: 60px; text-align: right;
+    }
+    .pw-weak span { width: 33%; background: var(--color-danger); }
+    .pw-weak .pw-label { color: var(--color-danger); }
+    .pw-fair span { width: 66%; background: var(--color-warning, #F59E0B); }
+    .pw-fair .pw-label { color: #F59E0B; }
+    .pw-strong span { width: 100%; background: var(--color-success); }
+    .pw-strong .pw-label { color: var(--color-success); }
+
+    /* Checkbox terms */
+    .auth-options {
+      margin-bottom: 22px;
+    }
+    .auth-check {
+      display: flex; align-items: flex-start; gap: 10px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--color-secondary-text);
+      line-height: 1.55;
+    }
+    .auth-check input {
+      width: 18px; height: 18px;
+      accent-color: var(--color-accent);
+      cursor: pointer;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .auth-check a {
+      color: var(--color-accent);
+      font-weight: 700;
+    }
+    .auth-check a:hover { text-decoration: underline; }
+
+    .auth-footer-note {
+      text-align: center;
+      font-size: 14px;
+      color: var(--color-secondary-text);
+      margin-top: 20px;
+    }
+    .auth-footer-note a {
+      color: var(--color-accent);
+      font-weight: 800;
+      transition: color 0.2s;
+    }
+    .auth-footer-note a:hover { text-decoration: underline; }
+
+    .auth-secure {
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--color-secondary-text);
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--color-border);
+    }
+    .auth-secure i { color: var(--color-accent); font-size: 13px; }
+
+    /* Name row */
+    .name-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+
+    /* ── Right: Branded panel ── */
+    .auth-brand-panel {
+      background: var(--gradient-accent);
+      border-radius: 26px;
+      padding: 40px 34px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      display: flex; flex-direction: column;
+      justify-content: center;
+      min-height: 100%;
+    }
+    @media (min-width: 1024px) {
+      .auth-brand-panel {
+        border-radius: 0 26px 26px 0;
+      }
+    }
+    .auth-brand-panel::before {
+      content: ''; position: absolute;
+      top: -30%; right: -20%; width: 420px; height: 420px;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .auth-brand-panel::after {
+      content: ''; position: absolute;
+      bottom: -40%; left: -15%; width: 340px; height: 340px;
+      background: radial-gradient(circle, rgba(255,255,255,0.10) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .auth-brand-panel > * { position: relative; z-index: 2; }
+
+    .brand-logo {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 26px;
+    }
+    .brand-logo-icon {
+      width: 46px; height: 46px; border-radius: 14px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.28);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: white;
+      backdrop-filter: blur(10px);
+    }
+    .brand-logo-text {
+      font-size: 22px; font-weight: 800; color: white;
+      letter-spacing: -0.5px;
+    }
+    .brand-logo-text em { font-style: normal; color: #FBBF24; }
+
+    .auth-brand-panel h2 {
+      font-size: 26px; font-weight: 800 !important;
+      color: white;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      margin-bottom: 14px;
+    }
+    @media (min-width: 640px) { .auth-brand-panel h2 { font-size: 30px; } }
+    .auth-brand-panel > p {
+      font-size: 14.5px;
+      color: rgba(255,255,255,0.90);
+      line-height: 1.7;
+      margin-bottom: 26px;
+      max-width: 420px;
+    }
+
+    .brand-features {
+      list-style: none; padding: 0; margin: 0 0 26px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .brand-features li {
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    .brand-features li i {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.22);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: white;
+      flex-shrink: 0;
+      backdrop-filter: blur(8px);
+    }
+    .brand-features li div strong {
+      display: block;
+      font-size: 14px; font-weight: 800;
+      color: white; margin-bottom: 2px;
+    }
+    .brand-features li div span {
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.80);
+      line-height: 1.5;
+    }
+
+    .brand-testimonial {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 16px;
+      padding: 18px;
+      backdrop-filter: blur(10px);
+      margin-top: 8px;
+    }
+    .brand-testimonial .bt-stars {
+      display: flex; gap: 3px;
+      color: #FBBF24; font-size: 12px;
+      margin-bottom: 10px;
+    }
+    .brand-testimonial p {
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.92);
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+    .brand-testimonial .bt-author {
+      font-size: 12px; font-weight: 800;
+      color: white;
+      text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .brand-testimonial .bt-role {
+      font-size: 11.5px;
+      color: rgba(255,255,255,0.75);
+      margin-top: 2px;
+    }
+
+    /* ================================================================
+       FOOTER
+       ================================================================ */
+    #main-footer {
+      background-color: var(--color-footer-bg);
+      color: var(--color-footer-text);
+      padding-top: 60px;
+      transition: background-color 0.3s;
+      margin-top: auto;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 1fr; gap: 36px;
+      padding-bottom: 44px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    @media (min-width: 640px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 1024px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 44px; } }
+    .footer-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .footer-brand .nav-logo-icon { width: 38px; height: 38px; border-radius: 11px; font-size: 17px; }
+    .footer-brand span { font-size: 21px; font-weight: 800; color: var(--color-footer-text); }
+    .footer-brand span em { font-style: normal; color: #4A9ED9; }
+    .footer-desc {
+      font-size: 13.5px; line-height: 1.7;
+      color: rgba(232, 240, 248, 0.65);
+      max-width: 300px; margin-bottom: 22px;
+    }
+    .footer-social { display: flex; gap: 10px; }
+    .footer-social a {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(232, 240, 248, 0.7); font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    .footer-social a:hover {
+      background: var(--gradient-accent); color: white;
+      border-color: transparent; transform: translateY(-3px);
+    }
+    .footer-heading {
+      font-size: 14px; font-weight: 700 !important;
+      color: #4A9ED9; margin-bottom: 18px;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .footer-links {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 11px;
+    }
+    .footer-links a {
+      font-size: 13.5px; color: rgba(232, 240, 248, 0.70);
+      transition: all 0.25s ease;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .footer-links a:hover { color: #7BB8E0; padding-left: 4px; }
+    .footer-links a i { font-size: 11px; color: #4A9ED9; }
+    .footer-contact {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 13px;
+    }
+    .footer-contact li {
+      display: flex; align-items: flex-start; gap: 11px;
+      font-size: 13.5px; color: rgba(232, 240, 248, 0.70);
+    }
+    .footer-contact li i {
+      color: #4A9ED9; font-size: 14px;
+      width: 18px; text-align: center; margin-top: 2px;
+    }
+    .footer-newsletter { display: flex; flex-direction: column; gap: 10px; }
+    .footer-newsletter input {
+      padding: 12px 14px; border-radius: 11px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: white; font-size: 13.5px; outline: none;
+      transition: border-color 0.3s;
+    }
+    .footer-newsletter input::placeholder { color: rgba(232, 240, 248, 0.40); }
+    .footer-newsletter input:focus { border-color: #4A9ED9; }
+    .footer-newsletter button {
+      padding: 12px 14px; border-radius: 11px;
+      background: var(--gradient-accent); color: white;
+      font-weight: 700; font-size: 13.5px;
+      transition: all 0.3s ease;
+    }
+    .footer-newsletter button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(30, 111, 159, 0.35);
+    }
+    .footer-bottom {
+      padding: 26px 0; text-align: center;
+      font-size: 12.5px; color: rgba(232, 240, 248, 0.50);
+    }
+
+    /* ================================================================
+       MOBILE DRAWER
+       ================================================================ */
+    #mobile-menu-drawer {
+      position: fixed; inset: 0; z-index: 60;
+      pointer-events: none; transition: all 0.3s ease;
+    }
+    #drawer-backdrop {
+      position: absolute; inset: 0; background: black;
+      opacity: 0; transition: opacity 0.3s ease; pointer-events: none;
+    }
+    #drawer-content {
+      position: absolute; top: 0; left: 0; right: 0;
+      background: var(--color-background);
+      border-radius: 0 0 24px 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.20);
+      padding: 22px; max-height: 85vh; overflow-y: auto;
+      transform: translateY(-100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .drawer-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-bottom: 14px; border-bottom: 1px solid var(--color-border);
+      margin-bottom: 14px;
+    }
+    .drawer-header .nav-logo-icon { width: 34px; height: 34px; border-radius: 10px; font-size: 15px; }
+    .drawer-header .nav-logo-text { font-size: 18px; }
+    .drawer-close {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-secondary-text);
+      background: var(--color-hover); border: 1px solid var(--color-border);
+      transition: all 0.25s ease;
+    }
+    .drawer-close:hover { color: var(--color-accent); border-color: var(--color-accent); }
+    .drawer-nav { display: flex; flex-direction: column; gap: 4px; }
+    .drawer-nav a,
+    .drawer-nav button {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; padding: 12px 14px; border-radius: 12px;
+      font-size: 15px; font-weight: 600;
+      color: var(--color-primary-text);
+      transition: all 0.25s ease; text-align: left;
+    }
+    .drawer-nav a:hover,
+    .drawer-nav button:hover {
+      background: var(--color-hover); color: var(--color-accent);
+    }
+    .drawer-sub {
+      display: none; flex-direction: column; gap: 2px;
+      padding-left: 16px; margin-top: 4px;
+      border-left: 2px solid var(--color-border);
+    }
+    .drawer-sub.open { display: flex; }
+    .drawer-sub a {
+      padding: 8px 14px; font-size: 13.5px; font-weight: 500;
+      color: var(--color-secondary-text);
+    }
+    .drawer-footer {
+      display: flex; gap: 12px; margin-top: 18px;
+      padding-top: 18px; border-top: 1px solid var(--color-border);
+    }
+    .drawer-footer a {
+      flex: 1; text-align: center; padding: 11px;
+      border-radius: 12px; font-weight: 700; font-size: 14px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    ::-webkit-scrollbar { display: none; }
+    html { scrollbar-width: none; -ms-overflow-style: none; }
+  </style>
+</head>
+<body>
+
+  <!-- ================================================================
+       AUTH PAGE — SIGN UP
+       ================================================================ -->
+  <main class="auth-page">
+    <div class="container">
+
+      <div class="auth-top-bar">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-icon"><i class="fa-solid fa-truck-fast"></i></div>
+          <div class="nav-logo-text">Swift<span>Parcel</span></div>
+        </a>
+        <div class="auth-top-actions">
+          <button id="theme-toggle" class="nav-icon-btn" title="Toggle theme">
+            <svg class="w-5 h-5 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            <svg class="w-5 h-5 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+          </button>
+          <button id="lang-icon" class="nav-icon-btn" title="Toggle RTL">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" /></svg>
+          </button>
+          <a href="index.html" class="auth-back-link"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+        </div>
+      </div>
+
+      <div class="auth-grid">
+
+        <!-- ═══════════════════════════════════════════════════════════
+             LEFT: SIGNUP FORM
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="auth-form-wrap">
+          <div class="auth-header">
+            <div class="auth-tag">
+              <i class="fa-solid fa-rocket"></i>
+              Free Forever
+            </div>
+            <h1>Create your account</h1>
+            <p>Sign up in under 60 seconds. No credit card required.</p>
+          </div>
+
+          <!-- Step indicator -->
+          <div class="step-indicator">
+            <div class="step-dot active" id="step-dot-1">
+              <span class="dot-num">1</span>
+              <span>Account</span>
+            </div>
+            <div class="step-line" id="step-line-1"></div>
+            <div class="step-dot" id="step-dot-2">
+              <span class="dot-num">2</span>
+              <span>Details</span>
+            </div>
+            <div class="step-line" id="step-line-2"></div>
+            <div class="step-dot" id="step-dot-3">
+              <span class="dot-num">3</span>
+              <span>Verify</span>
+            </div>
+          </div>
+
+          <!-- Social signup -->
+          <div class="auth-social-row" id="signup-social">
+            <button class="btn-social google" onclick="socialSignup('Google')">
+              <i class="fab fa-google"></i>
+              <span class="hidden sm:inline">Google</span>
+            </button>
+            <button class="btn-social apple" onclick="socialSignup('Apple')">
+              <i class="fab fa-apple"></i>
+              <span class="hidden sm:inline">Apple</span>
+            </button>
+            <button class="btn-social microsoft" onclick="socialSignup('Microsoft')">
+              <i class="fab fa-microsoft"></i>
+              <span class="hidden sm:inline">Microsoft</span>
+            </button>
+          </div>
+
+          <div class="auth-divider" id="signup-divider">or sign up with email</div>
+
+          <!-- Signup form -->
+          <form id="signup-form" onsubmit="event.preventDefault(); handleSignup();">
+
+            <!-- STEP 1: Account type + email + password -->
+            <div class="signup-step" id="signup-step-1">
+              <div class="auth-field">
+                <label>Choose Account Type</label>
+                <div class="account-type-grid">
+                  <button type="button" class="account-type-card active" data-account="personal">
+                    <div class="at-check"><i class="fa-solid fa-check"></i></div>
+                    <div class="at-icon"><i class="fa-solid fa-user"></i></div>
+                    <h4>Personal</h4>
+                    <p>Ship occasionally or for personal needs</p>
+                  </button>
+                  <button type="button" class="account-type-card" data-account="business">
+                    <div class="at-check"><i class="fa-solid fa-check"></i></div>
+                    <div class="at-icon"><i class="fa-solid fa-briefcase"></i></div>
+                    <h4>Business</h4>
+                    <p>High volume, bulk shipping, or e‑commerce</p>
+                  </button>
+                </div>
+              </div>
+
+              <div class="auth-field">
+                <label for="signup-email">Email Address</label>
+                <div class="auth-input-wrap">
+                  <i class="fa-solid fa-envelope input-icon"></i>
+                  <input type="email" id="signup-email" placeholder="you@company.com" required>
+                </div>
+              </div>
+
+              <div class="auth-field">
+                <label for="signup-password">Create Password</label>
+                <div class="auth-input-wrap">
+                  <i class="fa-solid fa-lock input-icon"></i>
+                  <input type="password" id="signup-password" placeholder="Min. 8 characters" required minlength="8" oninput="checkPasswordStrength(this.value)">
+                  <button type="button" class="password-toggle" onclick="togglePassword('signup-password', this)" aria-label="Show password">
+                    <i class="fa-solid fa-eye"></i>
+                  </button>
+                </div>
+                <div class="pw-strength" id="pw-strength">
+                  <div class="pw-bar"><span></span></div>
+                  <div class="pw-label">Weak</div>
+                </div>
+              </div>
+
+              <div class="auth-field">
+                <label for="signup-confirm">Confirm Password</label>
+                <div class="auth-input-wrap">
+                  <i class="fa-solid fa-lock input-icon"></i>
+                  <input type="password" id="signup-confirm" placeholder="Re-enter your password" required oninput="checkPasswordMatch()">
+                  <button type="button" class="password-toggle" onclick="togglePassword('signup-confirm', this)" aria-label="Show password">
+                    <i class="fa-solid fa-eye"></i>
+                  </button>
+                </div>
+                <div id="pw-match-msg" style="font-size: 12px; margin-top: 6px; font-weight: 600;"></div>
+              </div>
+
+              <div class="auth-options">
+                <label class="auth-check">
+                  <input type="checkbox" id="signup-terms" required>
+                  <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+                </label>
+              </div>
+
+              <button type="button" class="btn-primary" onclick="nextStep(1)">
+                Continue <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+
+            <!-- STEP 2: Personal details -->
+            <div class="signup-step" id="signup-step-2" style="display: none;">
+              <div class="auth-field">
+                <label>Full Name</label>
+                <div class="name-row">
+                  <div class="auth-input-wrap">
+                    <i class="fa-solid fa-user input-icon"></i>
+                    <input type="text" id="signup-first" placeholder="First name" required>
+                  </div>
+                  <div class="auth-input-wrap">
+                    <i class="fa-solid fa-user input-icon"></i>
+                    <input type="text" id="signup-last" placeholder="Last name" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="auth-field">
+                <label for="signup-phone">Phone Number</label>
+                <div class="auth-input-wrap">
+                  <i class="fa-solid fa-phone input-icon"></i>
+                  <input type="tel" id="signup-phone" placeholder="+1 (555) 000-0000" required>
+                </div>
+              </div>
+
+              <div class="auth-field">
+                <label for="signup-company">Company Name <span class="optional">(optional)</span></label>
+                <div class="auth-input-wrap">
+                  <i class="fa-solid fa-building input-icon"></i>
+                  <input type="text" id="signup-company" placeholder="Your company">
+                </div>
+              </div>
+
+              <div class="auth-field">
+                <label for="signup-address">Primary Address</label>
+                <div class="auth-input-wrap">
+                  <i class="fa-solid fa-location-dot input-icon"></i>
+                  <input type="text" id="signup-address" placeholder="123 Main St, New York, NY" required>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 10px; margin-bottom: 22px;">
+                <button type="button" class="btn-outline" style="flex: 1;" onclick="prevStep(2)">
+                  <i class="fa-solid fa-arrow-left"></i> Back
+                </button>
+                <button type="button" class="btn-primary" style="flex: 2;" onclick="nextStep(2)">
+                  Continue <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 3: Verify -->
+            <div class="signup-step" id="signup-step-3" style="display: none;">
+              <div style="text-align: center; margin-bottom: 22px;">
+                <div style="width: 72px; height: 72px; border-radius: 20px; background: var(--gradient-accent); display: flex; align-items: center; justify-content: center; font-size: 30px; color: white; margin: 0 auto 18px; box-shadow: 0 12px 32px rgba(30,111,159,0.30);">
+                  <i class="fa-solid fa-envelope-circle-check"></i>
+                </div>
+                <h2 style="font-size: 22px; font-weight: 800 !important; color: var(--color-primary-text); margin-bottom: 8px;">
+                  Verify your email
+                </h2>
+                <p style="font-size: 14px; color: var(--color-secondary-text); max-width: 380px; margin: 0 auto;">
+                  We've sent a 6‑digit code to <strong id="verify-email-display" style="color: var(--color-accent);">your email</strong>. Enter it below to activate your account.
+                </p>
+              </div>
+
+              <div class="auth-field">
+                <label style="text-align: center; display: block;">Verification Code</label>
+                <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; max-width: 380px; margin: 0 auto 20px;">
+                  <input type="text" maxlength="1" inputmode="numeric" class="otp-input" oninput="otpInput(this)" onkeydown="otpBackspace(event, this)" style="text-align: center; padding: 14px 0; font-size: 20px; font-weight: 800; border-radius: 12px; background: var(--input-bg); border: 1px solid var(--color-border); color: var(--color-primary-text); outline: none;">
+                  <input type="text" maxlength="1" inputmode="numeric" class="otp-input" oninput="otpInput(this)" onkeydown="otpBackspace(event, this)" style="text-align: center; padding: 14px 0; font-size: 20px; font-weight: 800; border-radius: 12px; background: var(--input-bg); border: 1px solid var(--color-border); color: var(--color-primary-text); outline: none;">
+                  <input type="text" maxlength="1" inputmode="numeric" class="otp-input" oninput="otpInput(this)" onkeydown="otpBackspace(event, this)" style="text-align: center; padding: 14px 0; font-size: 20px; font-weight: 800; border-radius: 12px; background: var(--input-bg); border: 1px solid var(--color-border); color: var(--color-primary-text); outline: none;">
+                  <input type="text" maxlength="1" inputmode="numeric" class="otp-input" oninput="otpInput(this)" onkeydown="otpBackspace(event, this)" style="text-align: center; padding: 14px 0; font-size: 20px; font-weight: 800; border-radius: 12px; background: var(--input-bg); border: 1px solid var(--color-border); color: var(--color-primary-text); outline: none;">
+                  <input type="text" maxlength="1" inputmode="numeric" class="otp-input" oninput="otpInput(this)" onkeydown="otpBackspace(event, this)" style="text-align: center; padding: 14px 0; font-size: 20px; font-weight: 800; border-radius: 12px; background: var(--input-bg); border: 1px solid var(--color-border); color: var(--color-primary-text); outline: none;">
+                  <input type="text" maxlength="1" inputmode="numeric" class="otp-input" oninput="otpInput(this)" onkeydown="otpBackspace(event, this)" style="text-align: center; padding: 14px 0; font-size: 20px; font-weight: 800; border-radius: 12px; background: var(--input-bg); border: 1px solid var(--color-border); color: var(--color-primary-text); outline: none;">
+                </div>
+                <div style="text-align: center; font-size: 13px; color: var(--color-secondary-text); margin-bottom: 22px;">
+                  Didn't get the code? <a href="#" onclick="event.preventDefault(); showToast('Code resent to your email');" style="color: var(--color-accent); font-weight: 700;">Resend</a>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 10px;">
+                <button type="button" class="btn-outline" style="flex: 1;" onclick="prevStep(3)">
+                  <i class="fa-solid fa-arrow-left"></i> Back
+                </button>
+                <button type="submit" class="btn-primary" style="flex: 2;">
+                  Verify &amp; Create Account <i class="fa-solid fa-circle-check"></i>
+                </button>
+              </div>
+            </div>
+
+          </form>
+
+          <p class="auth-footer-note">
+            Already have an account? <a href="login.html">Sign in</a>
+          </p>
+
+          <div class="auth-secure">
+            <i class="fa-solid fa-shield-halved"></i>
+            Your data is protected with 256‑bit SSL encryption
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             RIGHT: BRANDED PANEL
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="auth-brand-panel">
+          <div class="brand-logo">
+            <div class="brand-logo-icon"><i class="fa-solid fa-truck-fast"></i></div>
+            <div class="brand-logo-text">Swift<em>Parcel</em></div>
+          </div>
+
+          <h2>Join thousands of<br>smart shippers.</h2>
+          <p>Everything you need to ship, track, and manage deliveries — in one simple dashboard.</p>
+
+          <ul class="brand-features">
+            <li>
+              <i class="fa-solid fa-circle-check"></i>
+              <div>
+                <strong>Free forever plan</strong>
+                <span>No monthly fee. Pay only for what you ship.</span>
+              </div>
+            </li>
+            <li>
+              <i class="fa-solid fa-satellite-dish"></i>
+              <div>
+                <strong>Live tracking on every shipment</strong>
+                <span>Real‑time GPS updates from pickup to delivery</span>
+              </div>
+            </li>
+            <li>
+              <i class="fa-solid fa-file-invoice-dollar"></i>
+              <div>
+                <strong>Instant digital invoices</strong>
+                <span>Download, export, and reconcile anytime</span>
+              </div>
+            </li>
+            <li>
+              <i class="fa-solid fa-headset"></i>
+              <div>
+                <strong>24/7 human support</strong>
+                <span>Real people, ready to help — anytime</span>
+              </div>
+            </li>
+          </ul>
+
+          <div class="brand-testimonial">
+            <div class="bt-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p>"We switched to SwiftParcel and cut our shipping costs by 20%. The dashboard makes bulk shipping effortless."</p>
+            <div class="bt-author">Sarah Mitchell</div>
+            <div class="bt-role">Founder, Bloom &amp; Co.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ================================================================
+       SCRIPTS
+       ================================================================ -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const html = document.documentElement;
+
+      // Theme
+      const themeToggles = [document.getElementById('theme-toggle')];
+      const applyTheme = (theme) => {
+        html.setAttribute('data-theme', theme);
+        document.querySelectorAll('.light-icon').forEach(i => i.classList.toggle('hidden', theme === 'dark'));
+        document.querySelectorAll('.dark-icon').forEach(i => i.classList.toggle('hidden', theme === 'light'));
+      };
+      themeToggles.forEach(btn => {
+        if (btn) btn.addEventListener('click', () => {
+          const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+          localStorage.setItem('theme', next);
+          applyTheme(next);
+        });
+      });
+      applyTheme(localStorage.getItem('theme') || 'light');
+
+      // RTL
+      const langBtn = document.getElementById('lang-icon');
+      if (langBtn) {
+        langBtn.addEventListener('click', () => {
+          const current = localStorage.getItem('language') === 'ar' ? 'en' : 'ar';
+          localStorage.setItem('language', current);
+          html.setAttribute('dir', current === 'ar' ? 'rtl' : 'ltr');
+        });
+      }
+      html.setAttribute('dir', localStorage.getItem('language') === 'ar' ? 'rtl' : 'ltr');
+
+      // Account type selection
+      const accountCards = document.querySelectorAll('.account-type-card');
+      accountCards.forEach(card => {
+        card.addEventListener('click', () => {
+          accountCards.forEach(c => c.classList.remove('active'));
+          card.classList.add('active');
+        });
+      });
+    });
+
+    // ═══════════════════════════════════════════════════════════════
+    // PASSWORD TOGGLE
+    // ═══════════════════════════════════════════════════════════════
+    function togglePassword(inputId, btn) {
+      const input = document.getElementById(inputId);
+      const icon = btn.querySelector('i');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // PASSWORD STRENGTH
+    // ═══════════════════════════════════════════════════════════════
+    function checkPasswordStrength(value) {
+      const wrap = document.getElementById('pw-strength');
+      const label = wrap.querySelector('.pw-label');
+      wrap.classList.remove('pw-weak', 'pw-fair', 'pw-strong');
+
+      if (!value) {
+        label.textContent = 'Weak';
+        return;
+      }
+
+      let score = 0;
+      if (value.length >= 8) score++;
+      if (value.length >= 12) score++;
+      if (/[A-Z]/.test(value)) score++;
+      if (/[0-9]/.test(value)) score++;
+      if (/[^A-Za-z0-9]/.test(value)) score++;
+
+      if (score <= 2) {
+        wrap.classList.add('pw-weak');
+        label.textContent = 'Weak';
+      } else if (score <= 4) {
+        wrap.classList.add('pw-fair');
+        label.textContent = 'Fair';
+      } else {
+        wrap.classList.add('pw-strong');
+        label.textContent = 'Strong';
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // PASSWORD MATCH
+    // ═══════════════════════════════════════════════════════════════
+    function checkPasswordMatch() {
+      const pw = document.getElementById('signup-password').value;
+      const confirm = document.getElementById('signup-confirm').value;
+      const msg = document.getElementById('pw-match-msg');
+
+      if (!confirm) {
+        msg.textContent = '';
+        return;
+      }
+
+      if (pw === confirm) {
+        msg.textContent = '✓ Passwords match';
+        msg.style.color = '#10B981';
+      } else {
+        msg.textContent = '✗ Passwords do not match';
+        msg.style.color = '#EF4444';
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // STEP NAVIGATION
+    // ═══════════════════════════════════════════════════════════════
+    let currentStep = 1;
+
+    function showStep(step) {
+      // Hide all steps
+      document.querySelectorAll('.signup-step').forEach(s => s.style.display = 'none');
+      // Show current
+      const current = document.getElementById('signup-step-' + step);
+      if (current) current.style.display = 'block';
+
+      // Update step indicators
+      for (let i = 1; i <= 3; i++) {
+        const dot = document.getElementById('step-dot-' + i);
+        if (!dot) continue;
+        dot.classList.remove('active', 'done');
+        if (i < step) dot.classList.add('done');
+        else if (i === step) dot.classList.add('active');
+      }
+      // Update lines
+      for (let i = 1; i <= 2; i++) {
+        const line = document.getElementById('step-line-' + i);
+        if (!line) continue;
+        if (i < step) line.classList.add('done');
+        else line.classList.remove('done');
+      }
+
+      // Hide social/divider after step 1
+      const social = document.getElementById('signup-social');
+      const divider = document.getElementById('signup-divider');
+      if (social) social.style.display = step === 1 ? 'flex' : 'none';
+      if (divider) divider.style.display = step === 1 ? 'flex' : 'none';
+
+      currentStep = step;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextStep(step) {
+      // Validate current step before advancing
+      if (step === 1) {
+        const email = document.getElementById('signup-email').value.trim();
+        const pw = document.getElementById('signup-password').value;
+        const confirm = document.getElementById('signup-confirm').value;
+        const terms = document.getElementById('signup-terms').checked;
+
+        if (!email || !pw || !confirm) {
+          showToast('Please fill in all required fields');
+          return;
+        }
+        if (pw.length < 8) {
+          showToast('Password must be at least 8 characters');
+          return;
+        }
+        if (pw !== confirm) {
+          showToast('Passwords do not match');
+          return;
+        }
+        if (!terms) {
+          showToast('Please accept the Terms of Service');
+          return;
+        }
+        // Update verify display email
+        const display = document.getElementById('verify-email-display');
+        if (display) display.textContent = email;
+
+        showStep(2);
+      } else if (step === 2) {
+        const first = document.getElementById('signup-first').value.trim();
+        const last = document.getElementById('signup-last').value.trim();
+        const phone = document.getElementById('signup-phone').value.trim();
+        const address = document.getElementById('signup-address').value.trim();
+
+        if (!first || !last || !phone || !address) {
+          showToast('Please fill in all required fields');
+          return;
+        }
+        showStep(3);
+      }
+    }
+
+    function prevStep(fromStep) {
+      if (fromStep === 2) showStep(1);
+      else if (fromStep === 3) showStep(2);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // OTP INPUT HANDLING
+    // ═══════════════════════════════════════════════════════════════
+    function otpInput(el) {
+      el.value = el.value.replace(/[^0-9]/g, '');
+      if (el.value && el.nextElementSibling && el.nextElementSibling.classList.contains('otp-input')) {
+        el.nextElementSibling.focus();
+      }
+    }
+
+    function otpBackspace(e, el) {
+      if (e.key === 'Backspace' && !el.value && el.previousElementSibling && el.previousElementSibling.classList.contains('otp-input')) {
+        el.previousElementSibling.focus();
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // SIGNUP SUBMIT
+    // ═══════════════════════════════════════════════════════════════
+    function handleSignup() {
+      const btn = document.querySelector('#signup-form button[type="submit"]');
+      const original = btn.innerHTML;
+      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Creating account...';
+      btn.disabled = true;
+      btn.style.opacity = '0.7';
+
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Account Created!';
+        showToast('Welcome to SwiftParcel! Redirecting...');
+        setTimeout(() => {
+          window.location.href = 'login.html?signup=success';
+        }, 1200);
+      }, 1500);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // SOCIAL SIGNUP
+    // ═══════════════════════════════════════════════════════════════
+    function socialSignup(provider) {
+      showToast('Connecting to ' + provider + '...');
+      setTimeout(() => {
+        window.location.href = 'userdash.html';
+      }, 1200);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // TOAST
+    // ═══════════════════════════════════════════════════════════════
+    function showToast(message) {
+      const existing = document.getElementById('sp-toast');
+      if (existing) existing.remove();
+      const toast = document.createElement('div');
+      toast.id = 'sp-toast';
+      toast.style.cssText = `
+        position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px);
+        background: var(--gradient-accent); color: white;
+        padding: 14px 24px; border-radius: 12px;
+        font-size: 14px; font-weight: 700;
+        box-shadow: 0 12px 32px rgba(30,111,159,0.35);
+        z-index: 9999; opacity: 0;
+        transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex; align-items: center; gap: 10px;
+        max-width: 90vw;
+      `;
+      toast.innerHTML = '<i class="fa-solid fa-circle-check"></i> ' + message;
+      document.body.appendChild(toast);
+      requestAnimationFrame(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateX(-50%) translateY(0)';
+      });
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) translateY(20px)';
+        setTimeout(() => toast.remove(), 350);
+      }, 2600);
+    }
+  </script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (typeof Lenis !== 'undefined') {
+        const lenis = new Lenis({
+          duration: 1.1,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smooth: true,
+          smoothTouch: false,
+        });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+      }
+    });
+  </script>
+</body>
+</html>

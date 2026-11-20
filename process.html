@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/fav1.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <title>Process · SwiftParcel · Courier & Parcel Delivery</title>
+  <script src="tailwind.js"></script>
+  <style>
+    /* ================================================================
+       MODERN CLEAN PALETTE
+       ================================================================ */
+    :root, html[data-theme='light'] {
+      --color-background: #FFFFFF;
+      --color-primary-text: #1A2A3A;
+      --color-secondary-text: #5A6E7F;
+      --color-accent: #1E6F9F;
+      --color-accent-2: #F59E0B;
+      --color-accent-light: #EAF3FA;
+      --color-border: #D9E2EC;
+      --color-hover: #F2F7FC;
+      --color-footer-bg: #0F1A24;
+      --color-footer-text: #E8F0F8;
+      --nav-bg: rgba(255, 255, 255, 0.82);
+      --nav-border: rgba(30, 111, 159, 0.10);
+      --card-bg: #FFFFFF;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.06);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.08);
+      --gradient-accent: linear-gradient(135deg, #1E6F9F 0%, #14547A 100%);
+      --gradient-accent-soft: linear-gradient(135deg, rgba(30,111,159,0.08) 0%, rgba(20,84,122,0.04) 100%);
+            --gradient-warm: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+      --hero-overlay: linear-gradient(180deg, rgba(255, 255, 255, 0.93) 0%, rgba(255, 255, 255, 0.88) 55%, rgba(255, 255, 255, 0.98) 100%);
+    }
+    html[data-theme='dark'] {
+      --color-background: #121A22;
+      --color-primary-text: #E8F0F8;
+      --color-secondary-text: #9FB2C2;
+      --color-accent: #4A9ED9;
+      --color-accent-2: #FBBF24;
+      --color-accent-light: #1B2A38;
+      --color-border: #2C3E4E;
+      --color-hover: #1D2A36;
+      --color-footer-bg: #0A1017;
+      --color-footer-text: #D4E2F0;
+      --nav-bg: rgba(18, 26, 34, 0.82);
+      --nav-border: rgba(74, 158, 217, 0.12);
+      --card-bg: #1A242E;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.35);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.45);
+      --gradient-accent: linear-gradient(135deg, #4A9ED9 0%, #2E7AB5 100%);
+      --gradient-accent-soft: linear-gradient(135deg, rgba(74,158,217,0.10) 0%, rgba(46,122,181,0.05) 100%);
+            --gradient-warm: linear-gradient(135deg, #FBBF24 0%, #D97706 100%);
+      --hero-overlay: linear-gradient(180deg, rgba(18, 26, 34, 0.93) 0%, rgba(18, 26, 34, 0.88) 55%, rgba(18, 26, 34, 0.98) 100%);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      background-color: var(--color-background);
+      color: var(--color-primary-text);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+      overflow-x: hidden; margin: 0; line-height: 1.6;
+    }
+    .text-primary-text { color: var(--color-primary-text); }
+    .text-secondary-text { color: var(--color-secondary-text); }
+    .text-accent { color: var(--color-accent); }
+    .bg-background { background-color: var(--color-background); }
+    .bg-hover { background-color: var(--color-hover); }
+    .bg-card { background-color: var(--card-bg); }
+    .border-border { border-color: var(--color-border); }
+
+    h1, h2, h3, h4, h5, h6 { font-weight: 500 !important; margin: 0; }
+    p { margin: 0; font-weight: 400 !important; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+    @media (min-width: 640px) { .container { padding: 0 28px; } }
+    @media (min-width: 1024px) { .container { padding: 0 40px; } }
+    @media (min-width: 1280px) { .container { padding: 0 56px; } }
+
+    /* ================================================================
+       UNIQUE NAVBAR — Floating Glass Pill
+       ================================================================ */
+    #main-header {
+      position: fixed; top: 16px; left: 50%;
+      transform: translateX(-50%); z-index: 50;
+      width: 96%; max-width: 1280px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--nav-border);
+      border-radius: 9999px;
+      box-shadow: var(--shadow-md);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #main-header.scrolled { box-shadow: var(--shadow-lg); }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; padding: 0 18px;
+    }
+    @media (min-width: 640px) { .nav-inner { padding: 0 22px; } }
+
+    .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav-logo-icon {
+      width: 38px; height: 38px; border-radius: 11px;
+      background: var(--gradient-accent);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 17px;
+      box-shadow: 0 4px 12px rgba(30, 111, 159, 0.30);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .nav-logo:hover .nav-logo-icon {
+      transform: rotate(-8deg) scale(1.06);
+      box-shadow: 0 6px 18px rgba(30, 111, 159, 0.40);
+    }
+    .nav-logo-text {
+      font-size: 21px; font-weight: 800; letter-spacing: -0.5px;
+      color: var(--color-primary-text);
+    }
+    .nav-logo-text span { color: var(--color-accent); }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 2px;
+      background: var(--color-hover);
+      border-radius: 9999px; padding: 4px;
+      border: 1px solid var(--color-border);
+    }
+    .nav-link {
+      position: relative; padding: 7px 14px; border-radius: 9999px;
+      font-size: 13px; font-weight: 600;
+      color: var(--color-secondary-text);
+      transition: all 0.25s ease; white-space: nowrap;
+      display: flex; align-items: center; gap: 5px;
+      background: transparent;
+    }
+    .nav-link:hover { color: var(--color-accent); background: var(--color-background); }
+    .nav-link.active {
+      color: #FFFFFF !important;
+      background: var(--gradient-accent);
+      box-shadow: 0 4px 12px rgba(30, 111, 159, 0.28);
+    }
+    .nav-link:not(.active)::after {
+      content: ''; position: absolute; bottom: 3px; left: 50%;
+      width: 0; height: 2px; background: var(--color-accent);
+      border-radius: 2px; transition: width 0.3s ease, left 0.3s ease;
+    }
+    .nav-link:not(.active):hover::after { width: 40%; left: 30%; }
+
+    .dropdown-wrapper { position: relative; }
+    .dropdown-menu {
+      position: absolute; top: calc(100% + 12px); left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: var(--card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
+      min-width: 210px; z-index: 1000;
+      opacity: 0; visibility: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 8px; overflow: hidden;
+    }
+    .dropdown-wrapper:hover .dropdown-menu {
+      opacity: 1; visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    .dropdown-menu a {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 16px; color: var(--color-primary-text);
+      font-size: 13px; font-weight: 500; border-radius: 10px;
+      transition: all 0.2s ease;
+    }
+    .dropdown-menu a:hover {
+      background: var(--color-hover);
+      color: var(--color-accent); padding-left: 20px;
+    }
+    .dropdown-menu a.active {
+      background: var(--gradient-accent);
+      color: #FFFFFF !important;
+      font-weight: 700;
+    }
+    .dropdown-menu a.active:hover {
+      background: var(--gradient-accent);
+      color: #FFFFFF !important;
+      padding-left: 16px;
+    }
+    .dropdown-menu a i {
+      width: 16px; text-align: center;
+      color: var(--color-accent); font-size: 13px;
+    }
+    .dropdown-menu a.active i {
+      color: #FFFFFF !important;
+    }
+
+    .nav-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .nav-icon-btn {
+      width: 38px; height: 38px; border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-secondary-text);
+      background: transparent; border: 1px solid transparent;
+      transition: all 0.25s ease; font-size: 15px;
+    }
+    .nav-icon-btn:hover {
+      color: var(--color-accent); background: var(--color-hover);
+      border-color: var(--color-border);
+    }
+    .nav-cta {
+      display: flex; align-items: center; gap: 7px;
+      padding: 9px 18px; border-radius: 9999px;
+      background: var(--gradient-accent);
+      color: #FFFFFF; font-weight: 700; font-size: 13px;
+      box-shadow: 0 4px 14px rgba(30, 111, 159, 0.30);
+      transition: all 0.3s ease; white-space: nowrap;
+    }
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(30, 111, 159, 0.40);
+      color: #FFFFFF;
+    }
+    .nav-cta i { font-size: 12px; transition: transform 0.3s ease; }
+    .nav-cta:hover i { transform: translateX(3px); }
+
+    .mobile-menu-btn {
+      display: none; width: 42px; height: 42px;
+      border-radius: 12px; align-items: center; justify-content: center;
+      color: var(--color-primary-text); background: var(--color-hover);
+      border: 1px solid var(--color-border); transition: all 0.25s ease;
+    }
+    .mobile-menu-btn:hover { color: var(--color-accent); border-color: var(--color-accent); }
+
+    @media (max-width: 1180px) {
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: flex; }
+      .nav-inner { padding: 0 16px; }
+      .nav-actions .nav-icon-btn,
+      .nav-actions .nav-cta {
+        display: none !important;
+      }
+    }
+    @media (max-width: 640px) {
+      #main-header { top: 10px; width: 94%; }
+      .nav-inner { height: 58px; padding: 0 14px; }
+      .nav-logo-icon { width: 34px; height: 34px; font-size: 15px; border-radius: 10px; }
+      .nav-logo-text { font-size: 17px; }
+      .nav-cta { padding: 7px 14px; font-size: 12px; }
+      .nav-cta i { display: none; }
+      .nav-icon-btn { width: 34px; height: 34px; font-size: 13px; }
+      .mobile-menu-btn { width: 38px; height: 38px; }
+    }
+
+    /* ================================================================
+       BUTTONS
+       ================================================================ */
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: var(--gradient-accent); color: white;
+      padding: 12px 26px; border-radius: 12px;
+      font-weight: 700; font-size: 15px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 14px rgba(30, 111, 159, 0.25);
+      white-space: nowrap;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(30, 111, 159, 0.35);
+      color: white;
+    }
+    .btn-outline {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: transparent; color: var(--color-accent);
+      border: 2px solid var(--color-accent);
+      padding: 10px 24px; border-radius: 12px;
+      font-weight: 700; font-size: 15px;
+      transition: all 0.3s ease; white-space: nowrap;
+    }
+    .btn-outline:hover {
+      background: var(--color-accent); color: white;
+      box-shadow: 0 4px 12px rgba(30, 111, 159, 0.25);
+    }
+
+    /* ================================================================
+       PAGE HERO
+       ================================================================ */
+    .page-hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 130px 0 80px;
+      background-color: var(--color-background);
+      background-image: var(--hero-overlay), url('assets/images/heroes/hero-process.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      overflow: hidden;
+      isolation: isolate;
+      text-align: center;
+    }
+    .page-hero::before {
+      content: ''; position: absolute;
+      top: -40%; right: -15%; width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(30,111,159,0.07) 0%, transparent 70%);
+      border-radius: 50%; z-index: 0; pointer-events: none;
+    }
+    .page-hero::after {
+      content: ''; position: absolute;
+      bottom: -30%; left: -10%; width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(245,158,11,0.05) 0%, transparent 70%);
+      border-radius: 50%; z-index: 0; pointer-events: none;
+    }
+    .page-hero .container {
+      position: relative;
+      z-index: 2;
+      max-width: 880px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .page-hero .tag {
+      display: inline-block; font-size: 12px; font-weight: 700;
+      letter-spacing: 1.1px; text-transform: uppercase;
+      color: var(--color-accent);
+      background: var(--gradient-accent-soft);
+      padding: 7px 18px; border-radius: 9999px;
+      margin-bottom: 22px; border: 1px solid var(--color-border);
+    }
+    .page-hero h1 {
+      font-size: 40px; font-weight: 800 !important;
+      line-height: 1.15; letter-spacing: -1.2px;
+      color: var(--color-primary-text); margin-bottom: 22px;
+      text-align: center;
+    }
+    @media (min-width: 640px) { .page-hero h1 { font-size: 56px; } }
+    @media (min-width: 1024px) { .page-hero h1 { font-size: 68px; } }
+    .page-hero h1 .highlight {
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .page-hero p {
+      font-size: 18px; line-height: 1.75;
+      color: var(--color-secondary-text);
+      max-width: 720px; margin: 0 auto;
+      text-align: center;
+    }
+    @media (min-width: 640px) { .page-hero p { font-size: 20px; } }
+
+    .section { padding: 72px 0; }
+    @media (min-width: 640px) { .section { padding: 88px 0; } }
+    @media (min-width: 1024px) { .section { padding: 104px 0; } }
+
+    .section-header {
+      text-align: center; max-width: 680px; margin: 0 auto 48px;
+    }
+    .section-header .tag {
+      display: inline-block; font-size: 11.5px; font-weight: 700;
+      letter-spacing: 1.1px; text-transform: uppercase;
+      color: var(--color-accent);
+      background: var(--gradient-accent-soft);
+      padding: 6px 14px; border-radius: 9999px;
+      margin-bottom: 14px; border: 1px solid var(--color-border);
+    }
+    .section-header h2 {
+      font-size: 30px; font-weight: 800 !important;
+      letter-spacing: -0.8px; color: var(--color-primary-text);
+      margin-bottom: 14px; line-height: 1.15;
+    }
+    @media (min-width: 640px) { .section-header h2 { font-size: 38px; } }
+    @media (min-width: 1024px) { .section-header h2 { font-size: 42px; } }
+    .section-header p {
+      font-size: 16px; line-height: 1.7; color: var(--color-secondary-text);
+    }
+
+    /* ================================================================
+       SECTION 1: FULL DELIVERY JOURNEY (numbered steps)
+       ================================================================ */
+    
+    /* Standardized Button System */
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: var(--gradient-accent); color: #ffffff !important;
+      padding: 12px 26px; border-radius: 12px; min-height: 46px;
+      font-weight: 700; font-size: 15px; border: 2px solid transparent;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 14px rgba(30, 111, 159, 0.25);
+      white-space: nowrap; cursor: pointer; text-decoration: none; box-sizing: border-box;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(30, 111, 159, 0.35);
+      color: #ffffff !important;
+    }
+    .btn-outline {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: transparent; color: var(--color-accent) !important;
+      border: 2px solid var(--color-accent);
+      padding: 10px 24px; border-radius: 12px; min-height: 46px;
+      font-weight: 700; font-size: 15px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap; cursor: pointer; text-decoration: none; box-sizing: border-box;
+    }
+    .btn-outline:hover {
+      background: var(--color-accent); color: #ffffff !important;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(30, 111, 159, 0.25);
+    }
+    .btn-ghost {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: transparent; color: var(--color-primary-text) !important;
+      border: 1.5px solid var(--color-border);
+      padding: 10px 22px; border-radius: 12px; min-height: 46px;
+      font-weight: 600; font-size: 14.5px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap; cursor: pointer; text-decoration: none; box-sizing: border-box;
+    }
+    .btn-ghost:hover {
+      border-color: var(--color-accent); color: var(--color-accent) !important;
+      background: var(--color-hover); transform: translateY(-2px);
+    }
+
+    .journey-steps {
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .journey-step {
+      background: var(--card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 22px;
+      padding: 28px 26px;
+      display: grid; grid-template-columns: auto 1fr; gap: 20px;
+      align-items: flex-start;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative; overflow: hidden;
+    }
+    @media (min-width: 768px) {
+      .journey-step { grid-template-columns: auto 1fr auto; gap: 28px; padding: 32px 32px; align-items: center; }
+    }
+    .journey-step::before {
+      content: ''; position: absolute;
+      left: 0; top: 0; bottom: 0; width: 4px;
+      background: var(--gradient-accent);
+      transform: scaleY(0); transform-origin: top;
+      transition: transform 0.4s ease;
+    }
+    .journey-step:hover::before { transform: scaleY(1); }
+    .journey-step:hover {
+      transform: translateX(6px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--color-accent);
+    }
+    @media (max-width: 767px) {
+      .journey-step:hover { transform: translateX(0); }
+    }
+    .journey-num {
+      width: 60px; height: 60px; border-radius: 18px;
+      background: var(--gradient-accent-soft);
+      border: 1px solid var(--color-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 800;
+      color: var(--color-accent);
+      flex-shrink: 0;
+      transition: all 0.4s ease;
+    }
+    .journey-step:hover .journey-num {
+      background: var(--gradient-accent); color: white;
+      border-color: transparent;
+      transform: scale(1.08) rotate(-6deg);
+    }
+    .journey-content h3 {
+      font-size: 18px; font-weight: 700 !important;
+      color: var(--color-primary-text); margin-bottom: 8px;
+      display: flex; align-items: center; gap: 10px;
+      flex-wrap: wrap;
+    }
+    .journey-content h3 .badge {
+      display: inline-block;
+      padding: 3px 10px; border-radius: 9999px;
+      font-size: 10.5px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .badge-blue {
+      background: var(--gradient-accent-soft);
+      color: var(--color-accent);
+      border: 1px solid var(--color-border);
+    }
+    .badge-warm {
+      background: var(--gradient-warm);
+      color: white;
+    }
+    .journey-content p {
+      font-size: 14px; line-height: 1.7;
+      color: var(--color-secondary-text);
+      margin-bottom: 12px;
+    }
+    .journey-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .journey-tags span {
+      font-size: 11.5px; font-weight: 600;
+      padding: 4px 10px; border-radius: 9999px;
+      background: var(--color-hover);
+      border: 1px solid var(--color-border);
+      color: var(--color-secondary-text);
+    }
+    .journey-icon {
+      display: none;
+      width: 48px; height: 48px; border-radius: 14px;
+      background: var(--color-hover);
+      border: 1px solid var(--color-border);
+      align-items: center; justify-content: center;
+      font-size: 20px; color: var(--color-accent);
+      flex-shrink: 0;
+    }
+    @media (min-width: 768px) { .journey-icon { display: flex; } }
+
+    /* ================================================================
+       SECTION 2: COURIER vs PARCEL FLOW
+       ================================================================ */
+    .flow-grid {
+      display: grid; grid-template-columns: 1fr; gap: 24px;
+    }
+    @media (min-width: 900px) { .flow-grid { grid-template-columns: 1fr 1fr; gap: 28px; } }
+
+    .flow-card {
+      background: var(--card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 24px;
+      padding: 32px 28px;
+      position: relative; overflow: hidden;
+      transition: all 0.4s ease;
+    }
+    .flow-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--color-accent);
+    }
+    .flow-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+    }
+    .flow-card.courier::before { background: var(--gradient-accent); }
+    .flow-card.parcel::before { background: var(--gradient-warm); }
+
+    .flow-header {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 20px;
+    }
+    .flow-icon {
+      width: 54px; height: 54px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; color: white;
+      flex-shrink: 0;
+      box-shadow: 0 8px 20px rgba(30, 111, 159, 0.25);
+    }
+    .flow-icon.courier { background: var(--gradient-accent); }
+    .flow-icon.parcel { background: var(--gradient-warm); box-shadow: 0 8px 20px rgba(245,158,11,0.25); }
+    .flow-header h3 {
+      font-size: 20px; font-weight: 800 !important;
+      color: var(--color-primary-text); margin-bottom: 3px;
+    }
+    .flow-header span {
+      font-size: 13px; font-weight: 600;
+      color: var(--color-secondary-text);
+    }
+    .flow-card > p {
+      font-size: 14px; line-height: 1.7;
+      color: var(--color-secondary-text);
+      margin-bottom: 22px;
+    }
+    .flow-timeline {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 12px;
+      position: relative;
+    }
+    .flow-timeline li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 13.5px; color: var(--color-primary-text);
+      position: relative;
+    }
+    .flow-timeline li .dot {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--gradient-accent-soft);
+      border: 1px solid var(--color-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800;
+      color: var(--color-accent);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .flow-card.parcel .flow-timeline li .dot {
+      background: rgba(245,158,11,0.12);
+      color: var(--color-accent-2);
+      border-color: rgba(245,158,11,0.25);
+    }
+    .flow-timeline li div strong {
+      display: block; font-weight: 700;
+      color: var(--color-primary-text);
+      margin-bottom: 2px; font-size: 13.5px;
+    }
+    .flow-timeline li div span {
+      color: var(--color-secondary-text); font-size: 12.5px;
+    }
+
+    /* ================================================================
+       SECTION 3: TECHNOLOGY & TRACKING
+       ================================================================ */
+    .tech-grid {
+      display: grid; grid-template-columns: 1fr; gap: 20px;
+    }
+    @media (min-width: 640px) { .tech-grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 1024px) { .tech-grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .tech-card {
+      background: var(--card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 20px;
+      padding: 26px 22px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative; overflow: hidden;
+    }
+    .tech-card::before {
+      content: ''; position: absolute;
+      top: 0; left: -100%; width: 100%; height: 3px;
+      background: var(--gradient-accent);
+      transition: left 0.6s ease;
+    }
+    .tech-card:hover::before { left: 100%; }
+    .tech-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--color-accent);
+    }
+    .tech-icon {
+      width: 50px; height: 50px; border-radius: 14px;
+      background: var(--gradient-accent-soft);
+      border: 1px solid var(--color-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: var(--color-accent);
+      margin-bottom: 18px;
+      transition: all 0.4s ease;
+    }
+    .tech-card:hover .tech-icon {
+      background: var(--gradient-accent); color: white;
+      border-color: transparent;
+      transform: scale(1.08) rotate(-6deg);
+    }
+    .tech-card h4 {
+      font-size: 16px; font-weight: 700 !important;
+      color: var(--color-primary-text); margin-bottom: 8px;
+    }
+    .tech-card p {
+      font-size: 13px; line-height: 1.65;
+      color: var(--color-secondary-text);
+    }
+
+    /* ================================================================
+       SECTION 4: GUARANTEES
+       ================================================================ */
+    .guarantee-wrap {
+      display: grid; grid-template-columns: 1fr; gap: 32px;
+      align-items: center;
+    }
+    @media (min-width: 1024px) { .guarantee-wrap { grid-template-columns: 0.95fr 1.05fr; gap: 48px; } }
+
+    .guarantee-card {
+      background: var(--gradient-accent);
+      border-radius: 24px; padding: 40px 34px;
+      color: white; position: relative; overflow: hidden;
+      box-shadow: 0 20px 50px rgba(30, 111, 159, 0.25);
+    }
+    .guarantee-card::before {
+      content: ''; position: absolute;
+      top: -50%; right: -30%; width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .guarantee-card > * { position: relative; z-index: 2; }
+    .guarantee-icon {
+      width: 60px; height: 60px; border-radius: 18px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; color: white; margin-bottom: 22px;
+      backdrop-filter: blur(10px);
+    }
+    .guarantee-card h3 {
+      font-size: 24px; font-weight: 800 !important;
+      color: white; margin-bottom: 14px; line-height: 1.2;
+    }
+    .guarantee-card > p {
+      font-size: 15px; line-height: 1.75;
+      color: rgba(255,255,255,0.92);
+      margin-bottom: 24px;
+    }
+    .guarantee-list {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .guarantee-list li {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 14px; color: rgba(255,255,255,0.95);
+    }
+    .guarantee-list li i {
+      color: #FBBF24; font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .guarantee-grid {
+      display: grid; grid-template-columns: 1fr; gap: 16px;
+    }
+    @media (min-width: 640px) { .guarantee-grid { grid-template-columns: 1fr 1fr; } }
+    .guarantee-item {
+      background: var(--card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 18px; padding: 24px 22px;
+      transition: all 0.35s ease;
+    }
+    .guarantee-item:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-accent);
+    }
+    .guarantee-item .gi-icon {
+      width: 44px; height: 44px; border-radius: 13px;
+      background: var(--gradient-accent-soft);
+      border: 1px solid var(--color-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; color: var(--color-accent);
+      margin-bottom: 14px;
+      transition: all 0.35s ease;
+    }
+    .guarantee-item:hover .gi-icon {
+      background: var(--gradient-accent); color: white;
+      border-color: transparent;
+      transform: scale(1.08) rotate(-6deg);
+    }
+    .guarantee-item h4 {
+      font-size: 15.5px; font-weight: 700 !important;
+      color: var(--color-primary-text); margin-bottom: 8px;
+    }
+    .guarantee-item p {
+      font-size: 13px; line-height: 1.65;
+      color: var(--color-secondary-text);
+    }
+
+    /* ================================================================
+       SECTION 5: CTA
+       ================================================================ */
+    .cta-section {
+      padding: 64px 0 84px;
+      position: relative;
+    }
+    @media (min-width: 768px) {
+      .cta-section { padding: 80px 0 100px; }
+    }
+    @media (min-width: 1024px) {
+      .cta-section { padding: 96px 0 120px; }
+    }
+    .cta-card {
+      background: var(--gradient-accent);
+      border-radius: 24px; padding: 44px 24px;
+      text-align: center; position: relative; overflow: hidden;
+      box-shadow: 0 20px 60px rgba(30, 111, 159, 0.28);
+    }
+    @media (min-width: 768px) { .cta-card { padding: 64px 56px; } }
+    .cta-card::before {
+      content: ''; position: absolute;
+      top: -50%; right: -20%; width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .cta-card::after {
+      content: ''; position: absolute;
+      bottom: -40%; left: -10%; width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .cta-card > * { position: relative; z-index: 2; }
+    .cta-card h2 {
+      font-size: 28px; font-weight: 800 !important;
+      color: white; margin-bottom: 14px;
+      line-height: 1.15; letter-spacing: -0.5px;
+    }
+    @media (min-width: 640px) { .cta-card h2 { font-size: 38px; } }
+    .cta-card p {
+      font-size: 15.5px; line-height: 1.7;
+      color: rgba(255,255,255,0.90);
+      max-width: 540px; margin: 0 auto 28px;
+    }
+    .cta-buttons {
+      display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+    }
+    .cta-btn-white {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: white; color: #14547A;
+      padding: 13px 28px; border-radius: 12px;
+      font-weight: 700; font-size: 14.5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    }
+    .cta-btn-white:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      color: #14547A;
+    }
+    .cta-btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: white;
+      border: 2px solid rgba(255,255,255,0.5);
+      padding: 11px 26px; border-radius: 12px;
+      font-weight: 700; font-size: 14.5px;
+      transition: all 0.3s ease;
+    }
+    .cta-btn-ghost:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: white; color: white;
+    }
+
+    /* ================================================================
+       SCROLL REVEAL
+       ================================================================ */
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .stagger > * {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .stagger.active > *:nth-child(1) { transition-delay: 0.05s; opacity: 1; transform: translateY(0); }
+    .stagger.active > *:nth-child(2) { transition-delay: 0.15s; opacity: 1; transform: translateY(0); }
+    .stagger.active > *:nth-child(3) { transition-delay: 0.25s; opacity: 1; transform: translateY(0); }
+    .stagger.active > *:nth-child(4) { transition-delay: 0.35s; opacity: 1; transform: translateY(0); }
+    .stagger.active > *:nth-child(5) { transition-delay: 0.45s; opacity: 1; transform: translateY(0); }
+    .stagger.active > *:nth-child(6) { transition-delay: 0.55s; opacity: 1; transform: translateY(0); }
+
+    /* ================================================================
+       FOOTER
+       ================================================================ */
+    #main-footer {
+      background-color: var(--color-footer-bg);
+      color: var(--color-footer-text);
+      padding-top: 60px;
+      transition: background-color 0.3s;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 1fr; gap: 36px;
+      padding-bottom: 44px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    @media (min-width: 640px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 1024px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 44px; } }
+    .footer-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .footer-brand .nav-logo-icon { width: 38px; height: 38px; border-radius: 11px; font-size: 17px; }
+    .footer-brand span { font-size: 21px; font-weight: 800; color: var(--color-footer-text); }
+    .footer-brand span em { font-style: normal; color: #4A9ED9; }
+    .footer-desc {
+      font-size: 13.5px; line-height: 1.7;
+      color: rgba(232, 240, 248, 0.65);
+      max-width: 300px; margin-bottom: 22px;
+    }
+    .footer-social { display: flex; gap: 10px; }
+    .footer-social a {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(232, 240, 248, 0.7); font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    .footer-social a:hover {
+      background: var(--gradient-accent); color: white;
+      border-color: transparent; transform: translateY(-3px);
+    }
+    .footer-heading {
+      font-size: 14px; font-weight: 700 !important;
+      color: #4A9ED9; margin-bottom: 18px;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .footer-links {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 11px;
+    }
+    .footer-links a {
+      font-size: 13.5px; color: rgba(232, 240, 248, 0.70);
+      transition: all 0.25s ease;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .footer-links a:hover { color: #7BB8E0; padding-left: 4px; }
+    .footer-links a i { font-size: 11px; color: #4A9ED9; }
+    .footer-contact {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 13px;
+    }
+    .footer-contact li {
+      display: flex; align-items: flex-start; gap: 11px;
+      font-size: 13.5px; color: rgba(232, 240, 248, 0.70);
+    }
+    .footer-contact li i {
+      color: #4A9ED9; font-size: 14px;
+      width: 18px; text-align: center; margin-top: 2px;
+    }
+    .footer-newsletter { display: flex; flex-direction: column; gap: 10px; }
+    .footer-newsletter input {
+      padding: 12px 14px; border-radius: 11px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: white; font-size: 13.5px; outline: none;
+      transition: border-color 0.3s;
+    }
+    .footer-newsletter input::placeholder { color: rgba(232, 240, 248, 0.40); }
+    .footer-newsletter input:focus { border-color: #4A9ED9; }
+    .footer-newsletter button {
+      padding: 12px 14px; border-radius: 11px;
+      background: var(--gradient-accent); color: white;
+      font-weight: 700; font-size: 13.5px;
+      transition: all 0.3s ease;
+    }
+    .footer-newsletter button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(30, 111, 159, 0.35);
+    }
+    .footer-bottom {
+      padding: 26px 0; text-align: center;
+      font-size: 12.5px; color: rgba(232, 240, 248, 0.50);
+    }
+
+    /* ================================================================
+       MOBILE DRAWER
+       ================================================================ */
+    #mobile-menu-drawer {
+      position: fixed; inset: 0; z-index: 60;
+      pointer-events: none; transition: all 0.3s ease;
+    }
+    #drawer-backdrop {
+      position: absolute; inset: 0; background: black;
+      opacity: 0; transition: opacity 0.3s ease; pointer-events: none;
+    }
+    #drawer-content {
+      position: absolute; top: 0; left: 0; right: 0;
+      background: var(--color-background);
+      border-radius: 0 0 24px 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.20);
+      padding: 22px; max-height: 85vh; overflow-y: auto;
+      transform: translateY(-100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .drawer-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-bottom: 14px; border-bottom: 1px solid var(--color-border);
+      margin-bottom: 14px;
+    }
+    .drawer-header .nav-logo-icon { width: 34px; height: 34px; border-radius: 10px; font-size: 15px; }
+    .drawer-header .nav-logo-text { font-size: 18px; }
+    .drawer-header-actions {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .drawer-header-actions .nav-icon-btn {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-secondary-text);
+      background: var(--color-hover); border: 1px solid var(--color-border);
+      transition: all 0.25s ease; font-size: 14px;
+    }
+    .drawer-header-actions .nav-icon-btn:hover {
+      color: var(--color-accent); border-color: var(--color-accent);
+    }
+    .drawer-close {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-secondary-text);
+      background: var(--color-hover); border: 1px solid var(--color-border);
+      transition: all 0.25s ease;
+    }
+    .drawer-close:hover { color: var(--color-accent); border-color: var(--color-accent); }
+    .drawer-nav { display: flex; flex-direction: column; gap: 4px; }
+    .drawer-nav a,
+    .drawer-nav button {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; padding: 12px 14px; border-radius: 12px;
+      font-size: 15px; font-weight: 600;
+      color: var(--color-primary-text);
+      transition: all 0.25s ease; text-align: left;
+    }
+    .drawer-nav a:hover,
+    .drawer-nav button:hover {
+      background: var(--color-hover); color: var(--color-accent);
+    }
+    .drawer-nav a.active,
+    .drawer-nav button.active {
+      background: var(--gradient-accent); color: white;
+    }
+    .drawer-sub {
+      display: none; flex-direction: column; gap: 2px;
+      padding-left: 16px; margin-top: 4px;
+      border-left: 2px solid var(--color-border);
+    }
+    .drawer-sub.open { display: flex; }
+    .drawer-sub a {
+      padding: 8px 14px; font-size: 13.5px; font-weight: 500;
+      color: var(--color-secondary-text);
+      border-radius: 10px;
+      transition: all 0.2s ease;
+    }
+    .drawer-sub a:hover { color: var(--color-accent); background: var(--color-hover); }
+    .drawer-sub a.active {
+      background: var(--gradient-accent);
+      color: #FFFFFF !important;
+      font-weight: 700;
+    }
+    .drawer-sub a.active:hover {
+      background: var(--gradient-accent);
+      color: #FFFFFF !important;
+    }
+    .drawer-footer {
+      display: flex; gap: 12px; margin-top: 18px;
+      padding-top: 18px; border-top: 1px solid var(--color-border);
+    }
+    .drawer-footer a {
+      flex: 1; text-align: center; padding: 11px;
+      border-radius: 12px; font-weight: 700; font-size: 14px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    ::-webkit-scrollbar { display: none; }
+    html { scrollbar-width: none; -ms-overflow-style: none; }
+  </style>
+</head>
+<body>
+
+  <!-- ================================================================
+       UNIQUE NAVBAR
+       ================================================================ -->
+  <header id="main-header">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <div class="nav-logo-text">Swift<span>Parcel</span></div>
+      </a>
+
+      <nav class="nav-links">
+        <div class="dropdown-wrapper">
+          <button class="nav-link" id="home-dropdown-btn">
+            Home <i class="fa-solid fa-chevron-down text-[9px] opacity-60"></i>
+          </button>
+          <div class="dropdown-menu">
+            <a href="index.html">Home 1</a>
+            <a href="home2.html">Home 2</a>
+          </div>
+        </div>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="pricing.html" class="nav-link">Pricing</a>
+        <a href="process.html" class="nav-link active">Process</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <div class="dropdown-wrapper">
+          <button class="nav-link" id="dashboard-dropdown-btn">
+            Dashboard <i class="fa-solid fa-chevron-down text-[9px] opacity-60"></i>
+          </button>
+          <div class="dropdown-menu">
+            <a href="admin.html"><i class="fa-solid fa-shield-halved"></i> Admin Dashboard</a>
+            <a href="userdash.html"><i class="fa-solid fa-user-gear"></i> Customer Dashboard</a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="nav-icon-btn" title="Toggle theme">
+          <svg class="w-5 h-5 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+          <svg class="w-5 h-5 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+        </button>
+        <button id="lang-icon" class="nav-icon-btn" title="Toggle RTL">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" /></svg>
+        </button>
+        <a href="login.html" class="nav-cta">
+          <i class="fa-solid fa-right-to-bracket"></i> Login
+        </a>
+        <button id="mobile-menu-open" class="mobile-menu-btn">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ================================================================
+         PAGE HERO
+         ================================================================ -->
+    <section class="page-hero">
+      <div class="container">
+        <div class="tag">Our Process</div>
+        <h1>From Pickup to Doorstep,<br><span class="highlight">Every Step Tracked.</span></h1>
+        <p>See exactly how a SwiftParcel delivery moves through our network — from the moment you book to the moment it arrives, with full visibility at every stage.</p>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 1: FULL DELIVERY JOURNEY
+         ================================================================ -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="tag">The Journey</div>
+          <h2>How a delivery moves through SwiftParcel</h2>
+          <p>Six stages, one continuous chain of custody. Every step is logged, timestamped, and visible to you in real time.</p>
+        </div>
+
+        <div class="journey-steps stagger">
+          <div class="journey-step">
+            <div class="journey-num">01</div>
+            <div class="journey-content">
+              <h3>Booking <span class="badge badge-blue">You</span></h3>
+              <p>Enter pickup and delivery details, choose a service (courier or parcel), and confirm. You get an instant quote and a tracking ID the moment you book.</p>
+              <div class="journey-tags">
+                <span><i class="fa-solid fa-clock"></i> Under 60 seconds</span>
+                <span><i class="fa-solid fa-calculator"></i> Instant quote</span>
+                <span><i class="fa-solid fa-hashtag"></i> Tracking ID issued</span>
+              </div>
+            </div>
+            <div class="journey-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+          </div>
+
+          <div class="journey-step">
+            <div class="journey-num">02</div>
+            <div class="journey-content">
+              <h3>Dispatch <span class="badge badge-blue">System</span></h3>
+              <p>Our routing engine finds the nearest available courier or assigns your parcel to the right regional hub based on destination and service level.</p>
+              <div class="journey-tags">
+                <span><i class="fa-solid fa-route"></i> Auto‑routing</span>
+                <span><i class="fa-solid fa-user-tie"></i> Courier assigned</span>
+                <span><i class="fa-solid fa-bolt"></i> 12‑min avg pickup</span>
+              </div>
+            </div>
+            <div class="journey-icon"><i class="fa-solid fa-diagram-project"></i></div>
+          </div>
+
+          <div class="journey-step">
+            <div class="journey-num">03</div>
+            <div class="journey-content">
+              <h3>Pickup <span class="badge badge-warm">Courier</span></h3>
+              <p>Your courier arrives within the scheduled window. Each item is scanned, weighed, and logged — with an optional photo proof of pickup.</p>
+              <div class="journey-tags">
+                <span><i class="fa-solid fa-camera"></i> Photo proof</span>
+                <span><i class="fa-solid fa-barcode"></i> Scanned &amp; logged</span>
+                <span><i class="fa-solid fa-weight-hanging"></i> Verified weight</span>
+              </div>
+            </div>
+            <div class="journey-icon"><i class="fa-solid fa-truck-pickup"></i></div>
+          </div>
+
+          <div class="journey-step">
+            <div class="journey-num">04</div>
+            <div class="journey-content">
+              <h3>In Transit <span class="badge badge-blue">Network</span></h3>
+              <p>Courier deliveries move directly to the destination. Parcel shipments route through our 18 regional hubs with automated sorting and continuous GPS tracking.</p>
+              <div class="journey-tags">
+                <span><i class="fa-solid fa-satellite-dish"></i> Live GPS</span>
+                <span><i class="fa-solid fa-warehouse"></i> Hub sorting</span>
+                <span><i class="fa-solid fa-bell"></i> Milestone alerts</span>
+              </div>
+            </div>
+            <div class="journey-icon"><i class="fa-solid fa-truck-fast"></i></div>
+          </div>
+
+          <div class="journey-step">
+            <div class="journey-num">05</div>
+            <div class="journey-content">
+              <h3>Out for Delivery <span class="badge badge-warm">Courier</span></h3>
+              <p>Your item is on its final leg. The recipient gets a live ETA, and you can track the exact courier and vehicle on the map.</p>
+              <div class="journey-tags">
+                <span><i class="fa-solid fa-location-dot"></i> Live ETA</span>
+                <span><i class="fa-solid fa-map"></i> Map tracking</span>
+                <span><i class="fa-solid fa-sms"></i> SMS notification</span>
+              </div>
+            </div>
+            <div class="journey-icon"><i class="fa-solid fa-house-circle-check"></i></div>
+          </div>
+
+          <div class="journey-step">
+            <div class="journey-num">06</div>
+            <div class="journey-content">
+              <h3>Delivered &amp; Confirmed <span class="badge badge-warm">Recipient</span></h3>
+              <p>Signature or contactless delivery, with photo confirmation. You and the recipient get instant delivery confirmation and a downloadable receipt.</p>
+              <div class="journey-tags">
+                <span><i class="fa-solid fa-signature"></i> Signature option</span>
+                <span><i class="fa-solid fa-camera"></i> Photo proof</span>
+                <span><i class="fa-solid fa-file-invoice"></i> Instant receipt</span>
+              </div>
+            </div>
+            <div class="journey-icon"><i class="fa-solid fa-circle-check"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 2: COURIER vs PARCEL FLOW
+         ================================================================ -->
+    <section class="section" style="background: var(--color-hover);">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="tag">Two Flows, One Standard</div>
+          <h2>Courier and parcel, handled differently</h2>
+          <p>Both follow the same six stages — but the logistics behind each are tuned for their specific needs.</p>
+        </div>
+
+        <div class="flow-grid">
+          <div class="flow-card courier reveal">
+            <div class="flow-header">
+              <div class="flow-icon courier"><i class="fa-solid fa-bolt"></i></div>
+              <div>
+                <h3>Courier Flow</h3>
+                <span>Same‑day · City‑wide</span>
+              </div>
+            </div>
+            <p>Courier deliveries are point‑to‑point. One courier picks up from you and delivers directly to the recipient —  no sorting, no delay.</p>
+            <ul class="flow-timeline">
+              <li>
+                <div class="dot">1</div>
+                <div>
+                  <strong>Direct pickup</strong>
+                  <span>Courier arrives at your door in ~12 minutes</span>
+                </div>
+              </li>
+              <li>
+                <div class="dot">2</div>
+                <div>
+                  <strong>Direct transit</strong>
+                  <span>No hub — straight to the recipient</span>
+                </div>
+              </li>
+              <li>
+                <div class="dot">3</div>
+                <div>
+                  <strong>Delivery in hours</strong>
+                  <span>Typical completion in 1–4 hours</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="flow-card parcel reveal">
+            <div class="flow-header">
+              <div class="flow-icon parcel"><i class="fa-solid fa-box"></i></div>
+              <div>
+                <h3>Parcel Flow</h3>
+                <span>Nationwide · Multi‑hub</span>
+              </div>
+            </div>
+            <p>Parcel deliveries move through our regional hub network. Each parcel is scanned at every handoff for full chain of custody.</p>
+            <ul class="flow-timeline">
+              <li>
+                <div class="dot">1</div>
+                <div>
+                  <strong>Pickup &amp; sort</strong>
+                  <span>Scanned at pickup, routed to nearest hub</span>
+                </div>
+              </li>
+              <li>
+                <div class="dot">2</div>
+                <div>
+                  <strong>Hub transit</strong>
+                  <span>Automated sorting at 18 regional hubs</span>
+                </div>
+              </li>
+              <li>
+                <div class="dot">3</div>
+                <div>
+                  <strong>Final mile</strong>
+                  <span>Delivered in 1–5 days depending on service</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 3: TECHNOLOGY & TRACKING
+         ================================================================ -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="tag">Powered by Technology</div>
+          <h2>The tech behind every delivery</h2>
+          <p>Real‑time tracking, smart routing, and automated alerts — all built into every SwiftParcel shipment.</p>
+        </div>
+
+        <div class="tech-grid stagger">
+          <div class="tech-card">
+            <div class="tech-icon"><i class="fa-solid fa-satellite-dish"></i></div>
+            <h4>Live GPS Tracking</h4>
+            <p>Every courier and vehicle is tracked live. You see exactly where your shipment is, at every moment.</p>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon"><i class="fa-solid fa-route"></i></div>
+            <h4>Smart Routing</h4>
+            <p>Our routing engine picks the fastest path based on traffic, distance, and service level — saving time and fuel.</p>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon"><i class="fa-solid fa-barcode"></i></div>
+            <h4>Barcode Scanning</h4>
+            <p>Each shipment is scanned at every handoff, giving you a complete, timestamped chain of custody.</p>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon"><i class="fa-solid fa-bell"></i></div>
+            <h4>Automated Alerts</h4>
+            <p>SMS and email alerts at every milestone — pickup, in transit, out for delivery, and delivered.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 4: GUARANTEES
+         ================================================================ -->
+    <section class="section" style="background: var(--color-hover);">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="tag">Our Promise</div>
+          <h2>What we guarantee, every time</h2>
+          <p>Reliability isn't a feature — it's the foundation. Here's what you can count on with every SwiftParcel delivery.</p>
+        </div>
+
+        <div class="guarantee-wrap">
+          <div class="guarantee-card reveal">
+            <div class="guarantee-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <h3>The SwiftParcel Guarantee</h3>
+            <p>If we miss our promised delivery window, we make it right — automatically. No forms, no arguments, no waiting.</p>
+            <ul class="guarantee-list">
+              <li><i class="fa-solid fa-check"></i> 99.2% on‑time delivery rate</li>
+              <li><i class="fa-solid fa-check"></i> Automatic refund if we miss the window</li>
+              <li><i class="fa-solid fa-check"></i> Up to $500 insurance on every shipment</li>
+              <li><i class="fa-solid fa-check"></i> 24/7 live support from real humans</li>
+            </ul>
+          </div>
+
+          <div class="guarantee-grid stagger">
+            <div class="guarantee-item">
+              <div class="gi-icon"><i class="fa-solid fa-clock"></i></div>
+              <h4>On‑Time or Refunded</h4>
+              <p>If your delivery misses its promised window, we automatically issue a refund — no need to ask.</p>
+            </div>
+            <div class="guarantee-item">
+              <div class="gi-icon"><i class="fa-solid fa-lock"></i></div>
+              <h4>Secure Chain of Custody</h4>
+              <p>Every handoff is scanned and logged. Your shipment is never out of sight — or out of our system.</p>
+            </div>
+            <div class="guarantee-item">
+              <div class="gi-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+              <h4>Insured Up to $500</h4>
+              <p>Standard coverage on every shipment, with optional upgrades for high‑value items and parcels.</p>
+            </div>
+            <div class="guarantee-item">
+              <div class="gi-icon"><i class="fa-solid fa-headset"></i></div>
+              <h4>24/7 Human Support</h4>
+              <p>Real people, available any time — by phone, chat, or email. No bots, no queues, no runaround.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 5: CTA
+         ================================================================ -->
+    <section class="cta-section" style="padding-top: 72px;">
+      <div class="container">
+        <div class="cta-card reveal">
+          <h2>Ready to send your first shipment?</h2>
+          <p>Book a courier or parcel pickup in under 60 seconds. Track it live. Get it delivered — guaranteed.</p>
+          <div class="cta-buttons">
+            <a href="signup.html" class="cta-btn-white">
+              Sign Up Free <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="pricing.html#calculator" class="cta-btn-ghost">
+              <i class="fa-solid fa-calculator"></i> Get a Quote
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================================================================
+       FOOTER
+       ================================================================ -->
+  <footer id="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">
+            <div class="nav-logo-icon"><i class="fa-solid fa-truck-fast"></i></div>
+            <span>Swift<em>Parcel</em></span>
+          </div>
+          <p class="footer-desc">
+            On‑demand courier and reliable parcel delivery. From urgent documents to nationwide parcels — we move your items with speed and care.
+          </p>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-x-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="about.html"><i class="fa-solid fa-angle-right"></i> About Us</a></li>
+            <li><a href="services.html"><i class="fa-solid fa-angle-right"></i> Services</a></li>
+            <li><a href="pricing.html"><i class="fa-solid fa-angle-right"></i> Pricing</a></li>
+            <li><a href="process.html"><i class="fa-solid fa-angle-right"></i> Process</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-angle-right"></i> Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Services</h4>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fa-solid fa-angle-right"></i> Document Courier</a></li>
+            <li><a href="#"><i class="fa-solid fa-angle-right"></i> Express Courier</a></li>
+            <li><a href="#"><i class="fa-solid fa-angle-right"></i> Domestic Ground</a></li>
+            <li><a href="#"><i class="fa-solid fa-angle-right"></i> Express Parcel</a></li>
+            <li><a href="#"><i class="fa-solid fa-angle-right"></i> Bulk Parcel Shipping</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Get in Touch</h4>
+          <ul class="footer-contact">
+            <li>
+              <i class="fa-solid fa-location-dot"></i>
+              <span>101 Logistics Blvd, Suite 400<br>New York, NY 10001</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-phone"></i>
+              <a href="tel:+18005550199" style="color: inherit;">+1 (800) 555-0199</a>
+            </li>
+            <li>
+              <i class="fa-solid fa-envelope"></i>
+              <a href="mailto:hello@swiftparcel.com" style="color: inherit;">hello@swiftparcel.com</a>
+            </li>
+          </ul>
+          <div class="footer-newsletter" style="margin-top: 18px;">
+            <input type="email" placeholder="Email address">
+            <button>Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 SwiftParcel. All rights reserved. Built for speed, security, and clarity.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================================================================
+       MOBILE DRAWER
+       ================================================================ -->
+  <div id="mobile-menu-drawer">
+    <div id="drawer-backdrop"></div>
+    <div id="drawer-content">
+      <div class="drawer-header">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-icon"><i class="fa-solid fa-truck-fast"></i></div>
+          <div class="nav-logo-text">Swift<span>Parcel</span></div>
+        </a>
+        <div class="drawer-header-actions">
+          <button id="drawer-theme-toggle" class="nav-icon-btn" title="Toggle theme">
+            <svg class="w-5 h-5 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            <svg class="w-5 h-5 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+          </button>
+          <button id="drawer-lang-icon" class="nav-icon-btn" title="Toggle RTL">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" /></svg>
+          </button>
+          <button id="mobile-menu-close" class="drawer-close" aria-label="Close menu">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+      </div>
+      <nav class="drawer-nav">
+        <button id="mobile-homes-toggle">
+          Home <i class="fa-solid fa-chevron-down text-[11px] opacity-60" id="homes-icon"></i>
+        </button>
+        <div class="drawer-sub" id="mobile-homes-menu">
+          <a href="index.html">Home 1</a>
+          <a href="home2.html">Home 2</a>
+        </div>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="process.html" class="active">Process</a>
+        <a href="contact.html">Contact</a>
+        <button id="mobile-dashboard-toggle">
+          Dashboard <i class="fa-solid fa-chevron-down text-[11px] opacity-60" id="dashboard-icon"></i>
+        </button>
+        <div class="drawer-sub" id="mobile-dashboard-menu">
+          <a href="admin.html">Admin Dashboard</a>
+          <a href="userdash.html">Customer Dashboard</a>
+        </div>
+      </nav>
+      <div class="drawer-footer">
+        <a href="login.html" class="btn-outline" style="padding: 11px;">Login</a>
+        <a href="signup.html" class="btn-primary" style="padding: 11px;">Sign Up</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================
+       SCRIPTS
+       ================================================================ -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const html = document.documentElement;
+
+      // Navbar scroll effect
+      const header = document.getElementById('main-header');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 30) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+      }, { passive: true });
+
+      // Drawer
+      const drawer = document.getElementById('mobile-menu-drawer');
+      const drawerContent = document.getElementById('drawer-content');
+      const drawerBackdrop = document.getElementById('drawer-backdrop');
+
+      const openDrawer = () => {
+        drawer.style.pointerEvents = 'auto';
+        drawerContent.style.transform = 'translateY(0)';
+        drawerBackdrop.style.opacity = '0.5';
+        drawerBackdrop.style.pointerEvents = 'auto';
+        document.body.style.overflow = 'hidden';
+      };
+      const closeDrawer = () => {
+        drawerContent.style.transform = 'translateY(-100%)';
+        drawerBackdrop.style.opacity = '0';
+        drawerBackdrop.style.pointerEvents = 'none';
+        setTimeout(() => {
+          drawer.style.pointerEvents = 'none';
+          document.body.style.overflow = '';
+        }, 350);
+      };
+
+      document.getElementById('mobile-menu-open').addEventListener('click', openDrawer);
+      document.getElementById('mobile-menu-close').addEventListener('click', closeDrawer);
+      drawerBackdrop.addEventListener('click', closeDrawer);
+
+      const setupDrawerAccordion = (toggleId, menuId, iconId) => {
+        const toggle = document.getElementById(toggleId);
+        const menu = document.getElementById(menuId);
+        const icon = document.getElementById(iconId);
+        if (!toggle || !menu) return;
+        toggle.addEventListener('click', () => {
+          menu.classList.toggle('open');
+          if (icon) icon.style.transform = menu.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0)';
+        });
+      };
+      setupDrawerAccordion('mobile-homes-toggle', 'mobile-homes-menu', 'homes-icon');
+      setupDrawerAccordion('mobile-dashboard-toggle', 'mobile-dashboard-menu', 'dashboard-icon');
+
+      // Theme
+      const themeToggles = [document.getElementById('theme-toggle'), document.getElementById('drawer-theme-toggle')];
+      const applyTheme = (theme) => {
+        html.setAttribute('data-theme', theme);
+        document.querySelectorAll('.light-icon').forEach(i => i.classList.toggle('hidden', theme === 'dark'));
+        document.querySelectorAll('.dark-icon').forEach(i => i.classList.toggle('hidden', theme === 'light'));
+      };
+      themeToggles.forEach(btn => {
+        if (btn) btn.addEventListener('click', () => {
+          const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+          localStorage.setItem('theme', next);
+          applyTheme(next);
+        });
+      });
+      applyTheme(localStorage.getItem('theme') || 'light');
+
+      // RTL
+      const langBtns = [document.getElementById('lang-icon'), document.getElementById('drawer-lang-icon')];
+      langBtns.forEach(btn => {
+        if (btn) {
+          btn.addEventListener('click', () => {
+            const current = localStorage.getItem('language') === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('language', current);
+            html.setAttribute('dir', current === 'ar' ? 'rtl' : 'ltr');
+          });
+        }
+      });
+      html.setAttribute('dir', localStorage.getItem('language') === 'ar' ? 'rtl' : 'ltr');
+
+      // Scroll reveal
+      const revealElements = document.querySelectorAll('.reveal, .stagger');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+      revealElements.forEach(el => observer.observe(el));
+    });
+  </script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (typeof Lenis !== 'undefined') {
+        const lenis = new Lenis({
+          duration: 1.1,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smooth: true,
+          smoothTouch: false,
+        });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+      }
+    });
+  </script>
+</body>
+</html>
